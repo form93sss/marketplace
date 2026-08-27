@@ -6,36 +6,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
-    // ดึงค่าธีมเดิมที่เคยบันทึกไว้
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark") {
-      setDarkMode(true);
-      document.documentElement.classList.add("dark");
-    }
-  }, []);
-
-  const toggleDarkMode = () => {
     if (darkMode) {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-      setDarkMode(false);
-    } else {
       document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-      setDarkMode(true);
+    } else {
+      document.documentElement.classList.remove("dark");
     }
-  };
+  }, [darkMode]);
 
   return (
     <html lang="th">
-      <body className="min-h-screen transition-colors duration-200">
+      <body className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen">
         <header className="sticky top-0 z-50 bg-white/80 dark:bg-slate-800/80 backdrop-blur border-b border-slate-200 dark:border-slate-700 px-4 py-3 flex justify-between items-center max-w-md mx-auto sm:max-w-xl">
           <h1 className="font-bold text-lg text-indigo-600 dark:text-indigo-400">Campus Market</h1>
           <button
-            onClick={toggleDarkMode}
-            className="p-2 text-xs font-semibold rounded-lg bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-100 hover:opacity-80 transition"
+            onClick={() => setDarkMode(!darkMode)}
+            className="p-2 text-xs font-semibold rounded-lg bg-slate-200 dark:bg-slate-700 hover:opacity-80 transition"
           >
-            {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
+            {darkMode ? "☀️ Light" : "🌙 Dark"}
           </button>
         </header>
 
