@@ -40,3 +40,15 @@ body {
 .animate-pulse-glow {
   animation: pulseGlow 4s infinite ease-in-out;
 }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  background-color: #09090b !important; /* zinc-950 */
+  color: #f4f4f5;
+  overflow-x: hidden;
+}
