@@ -29,9 +29,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="th">
       <body className="min-h-screen transition-colors duration-300">
-        {/* Top Header Navigation */}
-        <header className="sticky top-0 z-50 glass-effect border-b border-slate-200/60 dark:border-slate-800/60 px-4 py-3">
-          <div className="max-w-md mx-auto sm:max-w-xl flex justify-between items-center">
+        <header className="sticky top-0 z-50 glass-effect border-b border-slate-200/60 dark:border-slate-800/60 px-6 py-3">
+          {/* เอา max-w-md / max-w-xl ออกเพื่อให้ขยายเต็มหน้าจอ */}
+          <div className="w-full flex justify-between items-center">
             <Link href="/home" className="flex items-center gap-2">
               <span className="w-8 h-8 rounded-xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center text-white font-black text-sm shadow-md shadow-indigo-500/30">
                 CM
@@ -50,8 +50,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </header>
 
-        {/* Main Content Area */}
-        <main className="max-w-md mx-auto sm:max-w-xl p-4 min-h-[calc(100vh-60px)]">
+        {/* เอา max-w ออกเพื่อให้เนื้อหาเต็มความกว้างหน้าจอ */}
+        <main className="w-full p-4 sm:p-6 min-h-[calc(100vh-60px)]">
           {children}
         </main>
       </body>
