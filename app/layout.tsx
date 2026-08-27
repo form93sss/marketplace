@@ -1,32 +1,57 @@
 "use client";
 import "./globals.css";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
-    if (darkMode) {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+      setDarkMode(true);
       document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
     }
-  }, [darkMode]);
+  }, []);
+
+  const toggleDarkMode = () => {
+    if (darkMode) {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+      setDarkMode(false);
+    } else {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+      setDarkMode(true);
+    }
+  };
 
   return (
     <html lang="th">
-      <body className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen">
-        <header className="sticky top-0 z-50 bg-white/80 dark:bg-slate-800/80 backdrop-blur border-b border-slate-200 dark:border-slate-700 px-4 py-3 flex justify-between items-center max-w-md mx-auto sm:max-w-xl">
-          <h1 className="font-bold text-lg text-indigo-600 dark:text-indigo-400">Campus Market</h1>
-          <button
-            onClick={() => setDarkMode(!darkMode)}
-            className="p-2 text-xs font-semibold rounded-lg bg-slate-200 dark:bg-slate-700 hover:opacity-80 transition"
-          >
-            {darkMode ? "☀️ Light" : "🌙 Dark"}
-          </button>
+      <body className="min-h-screen transition-colors duration-300">
+        {/* Top Header Navigation */}
+        <header className="sticky top-0 z-50 glass-effect border-b border-slate-200/60 dark:border-slate-800/60 px-4 py-3">
+          <div className="max-w-md mx-auto sm:max-w-xl flex justify-between items-center">
+            <Link href="/home" className="flex items-center gap-2">
+              <span className="w-8 h-8 rounded-xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center text-white font-black text-sm shadow-md shadow-indigo-500/30">
+                CM
+              </span>
+              <span className="font-extrabold text-base bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                Campus Marketplace
+              </span>
+            </Link>
+            
+            <button
+              onClick={toggleDarkMode}
+              className="px-3 py-1.5 text-xs font-bold rounded-full bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-300/50 dark:border-slate-700 hover:scale-105 active:scale-95 transition"
+            >
+              {darkMode ? "☀️ Light" : "🌙 Dark"}
+            </button>
+          </div>
         </header>
 
-        <main className="max-w-md mx-auto sm:max-w-xl p-4">
+        {/* Main Content Area */}
+        <main className="max-w-md mx-auto sm:max-w-xl p-4 min-h-[calc(100vh-60px)]">
           {children}
         </main>
       </body>
