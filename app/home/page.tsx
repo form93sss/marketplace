@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 
 // ----------------------------------------------------------------------
-// 1. Component หน้าโหลด (Loading Screen with Typing Effect)
+// 1. Component หน้าโหลด (Minimal Typing Effect - White to Orange)
 // ----------------------------------------------------------------------
 function LoadingScreen({ onFinished }: { onFinished: () => void }) {
   const [progress, setProgress] = useState(0);
@@ -15,7 +15,7 @@ function LoadingScreen({ onFinished }: { onFinished: () => void }) {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval);
-          setTimeout(onFinished, 500); // เมื่อโหลดครบ 100% ให้เปิดเข้าหน้าเว็บ
+          setTimeout(onFinished, 500); // โหลดเสร็จเปิดเข้าเว็บ
           return 100;
         }
         return prev + 1;
@@ -26,32 +26,25 @@ function LoadingScreen({ onFinished }: { onFinished: () => void }) {
   }, [onFinished]);
 
   useEffect(() => {
-    // เอฟเฟกต์ตัวอักษรค่อยๆ ปรากฏทีละตัวตาม Progress %
+    // เอฟเฟกต์ค่อยๆ พิมพ์ตัวอักษรทีละตัวตาม %
     const charIndex = Math.floor((progress / 100) * textToType.length);
     setDisplayedText(textToType.substring(0, charIndex));
   }, [progress]);
 
   return (
     <div className="fixed inset-0 z-50 bg-black flex flex-col items-center justify-center select-none overflow-hidden">
-      {/* แสงเรืองแสงสีส้มด้านหลัง */}
-      <div className="absolute w-72 h-72 bg-orange-600/20 rounded-full blur-[100px] pointer-events-none" />
+      {/* แสงเรืองแสงสีส้มด้านหลังตรงกลาง */}
+      <div className="absolute w-80 h-80 bg-orange-600/20 rounded-full blur-[120px] pointer-events-none" />
 
-      {/* กล่องโลโก้ชาร์ต Lightning */}
-      <div className="relative mb-6">
-        <div className="w-20 h-20 bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-[0_0_40px_rgba(249,115,22,0.4)] border border-orange-400/40 animate-pulse">
-          <span className="text-4xl font-black text-black">⚡</span>
-        </div>
-      </div>
-
-      {/* ข้อความ Typing Effect (ตัวอักษรค่อยๆ โหลดขึ้นมา) */}
-      <div className="relative h-12 flex items-center justify-center">
-        <h1 className="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-500 to-amber-300 tracking-wider drop-shadow-[0_0_15px_rgba(249,115,22,0.6)]">
+      {/* ข้อความชื่อเว็บ ไล่เฉดสีจากขาว -> ส้มอ่อน -> ส้มเข้ม */}
+      <div className="relative h-20 flex items-center justify-center mb-2">
+        <h1 className="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-orange-300 to-orange-500 tracking-wider drop-shadow-[0_0_25px_rgba(249,115,22,0.6)]">
           {displayedText}
-          <span className="inline-block w-1.5 h-8 ml-1 bg-orange-500 animate-ping" />
+          <span className="inline-block w-1.5 h-10 ml-1.5 bg-orange-500 animate-ping align-middle" />
         </h1>
       </div>
 
-      <p className="text-xs text-orange-400/80 tracking-widest font-mono mt-2 mb-6 uppercase">
+      <p className="text-xs text-orange-400/80 tracking-widest font-mono mb-8 uppercase">
         POWERED BY NEXT.JS & VERCEL
       </p>
 
@@ -59,12 +52,12 @@ function LoadingScreen({ onFinished }: { onFinished: () => void }) {
       <div className="w-64 md:w-80 space-y-2">
         <div className="w-full bg-zinc-900 h-2 rounded-full overflow-hidden border border-orange-500/20 p-[1px]">
           <div
-            className="bg-gradient-to-r from-amber-500 to-orange-500 h-full rounded-full transition-all duration-75 ease-out shadow-[0_0_10px_#f97316]"
+            className="bg-gradient-to-r from-white via-orange-400 to-orange-500 h-full rounded-full transition-all duration-75 ease-out shadow-[0_0_12px_#f97316]"
             style={{ width: `${progress}%` }}
           />
         </div>
 
-        <div className="flex justify-between items-center text-[10px] font-mono text-orange-400/60">
+        <div className="flex justify-between items-center text-[10px] font-mono text-orange-400/70">
           <span>SYSTEM INITIALIZING...</span>
           <span className="font-bold text-orange-400">{progress}%</span>
         </div>
@@ -188,7 +181,6 @@ export default function HomePage() {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
-  // เพิ่มสินค้าเข้าตะกร้า
   const addToCart = (product: Product) => {
     setCart((prevCart) => {
       const existingItem = prevCart.find((item) => item.id === product.id);
@@ -201,7 +193,6 @@ export default function HomePage() {
     });
   };
 
-  // ปรับจำนวนสินค้าในตะกร้า
   const updateQuantity = (id: number, delta: number) => {
     setCart((prevCart) =>
       prevCart
@@ -224,14 +215,13 @@ export default function HomePage() {
     return product.category === selectedCategory;
   });
 
-  // ถ้าอยู่ในสถานะกำลังโหลด ให้แสดง LoadingScreen
   if (isLoading) {
     return <LoadingScreen onFinished={() => setIsLoading(false)} />;
   }
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 p-4 md:p-8 pb-32 relative">
-      {/* Banner หัวข้อตลาดนัดวิทยาลัย */}
+      {/* Banner ตลาดนัดวิทยาลัย */}
       <div className="w-full bg-gradient-to-r from-orange-600 via-amber-600 to-orange-500 rounded-2xl p-6 md:p-8 mb-8 shadow-[0_10px_30px_rgba(249,115,22,0.2)] relative overflow-hidden">
         <div className="relative z-10">
           <div className="inline-flex items-center gap-2 bg-black/30 backdrop-blur-md px-3 py-1 rounded-full text-xs text-orange-200 border border-orange-400/30 mb-3">
