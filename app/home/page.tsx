@@ -2,20 +2,18 @@
 import Link from "next/link";
 import { useState } from "react";
 
-// อ้างอิง Interface สินค้า
 interface Product {
   id: number;
   name: string;
   price: number;
   seller: string;
   category: string;
-  image: string; // รูปหน้าปก 2D (สำหรับ fallback)
-  modelSrc: string; // ลิงก์ไฟล์โมเดล 3D (.glb หรือ .gltf)
+  image: string;
+  modelSrc: string;
   description: string;
   badgeStyle: string;
 }
 
-// ข้อมูลจำลองสินค้าที่มีโมเดล 3D (ใช้ไฟล์ GLB ตัวอย่างจาก Google)
 const mockProducts: Product[] = [
   { 
     id: 1, 
@@ -24,7 +22,7 @@ const mockProducts: Product[] = [
     seller: "นายสมชาย (ปวส.2)", 
     category: "ไอที", 
     image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80",
-    modelSrc: "https://modelviewer.dev/shared-assets/models/Astronaut.glb", // **ตัวอย่างไฟล์ GLB (นักบินอวกาศ)**
+    modelSrc: "https://modelviewer.dev/shared-assets/models/Astronaut.glb",
     description: "หูฟังเสียงดี เบสแน่น ตัดเสียงรบกวนได้ สภาพมือหนึ่ง กล่องครบ",
     badgeStyle: "bg-orange-500/20 text-orange-400 border-orange-500/40" 
   },
@@ -35,7 +33,7 @@ const mockProducts: Product[] = [
     seller: "นางสาวสมหญิง (ปวช.3)", 
     category: "อุปกรณ์การเรียน", 
     image: "https://images.unsplash.com/photo-1594980596870-8aa52a78d8cd?w=500&q=80",
-    modelSrc: "https://modelviewer.dev/shared-assets/models/glTF-Sample-Models/Examples/SheenChair/glTF-Binary/SheenChair.glb", // **ตัวอย่างไฟล์ GLB (เก้าอี้)**
+    modelSrc: "https://modelviewer.dev/shared-assets/models/glTF-Sample-Models/Examples/SheenChair/glTF-Binary/SheenChair.glb",
     description: "รุ่น fx-991EX คำนวณเมทริกซ์และสถิติได้ ใช้งานได้ปกติทุกปุ่ม พร้อมฝาครอบ",
     badgeStyle: "bg-amber-500/20 text-amber-400 border-amber-500/40" 
   },
@@ -46,7 +44,7 @@ const mockProducts: Product[] = [
     seller: "อนันต์ (ปวส.1)", 
     category: "แฟชั่น", 
     image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&q=80",
-    modelSrc: "https://modelviewer.dev/shared-assets/models/glTF-Sample-Models/Examples/Duck/glTF-Binary/Duck.glb", // **ตัวอย่างไฟล์ GLB (เป็ด)**
+    modelSrc: "https://modelviewer.dev/shared-assets/models/glTF-Sample-Models/Examples/Duck/glTF-Binary/Duck.glb",
     description: "กระเป๋าเป้มีช่องใส่โน้ตบุ๊ก 15.6 นิ้ว ซิปลื่น ผ้ากันน้ำซึม 100%",
     badgeStyle: "bg-orange-500/20 text-orange-400 border-orange-500/40" 
   },
@@ -57,7 +55,7 @@ const mockProducts: Product[] = [
     seller: "กิตติ (ปวช.2)", 
     category: "ไอที", 
     image: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=500&q=80",
-    modelSrc: "https://modelviewer.dev/shared-assets/models/shishkebab.glb", // **ตัวอย่างไฟล์ GLB (เคบับ)**
+    modelSrc: "https://modelviewer.dev/shared-assets/models/shishkebab.glb",
     description: "เชื่อมต่อผ่าน ตัวรับ USB 2.4GHz คลิกนุ่ม เงียบ ประหยัดแบตเตอรี่",
     badgeStyle: "bg-amber-500/20 text-amber-400 border-amber-500/40" 
   },
@@ -75,7 +73,7 @@ export default function HomePage() {
 
   return (
     <div className="pb-28 space-y-6 bg-zinc-950 text-zinc-100 min-h-screen p-4 sm:p-6">
-      {/* 1. Hero Banner */}
+      {/* Hero Banner */}
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-zinc-900 via-orange-950/80 to-orange-600/90 border border-orange-500/30 p-6 text-white shadow-[0_0_30px_rgba(249,115,22,0.15)]">
         <div className="absolute top-0 right-0 w-64 h-64 bg-orange-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 flex justify-between items-center">
@@ -86,22 +84,36 @@ export default function HomePage() {
             <h2 className="text-2xl font-black tracking-tight text-white drop-shadow">ตลาดนัดวิทยาลัย</h2>
             <p className="text-xs text-zinc-400 mt-1">ซื้อ-ขาย สินค้านักศึกษา หมุนดูแบบ 3D ได้สมจริง</p>
           </div>
-          {/* Cart Icon */}
-          <div 
-            className="relative bg-zinc-900/90 p-3.5 rounded-2xl border border-orange-500/40 flex items-center justify-center shadow-lg"
-          >
+          <div className="relative bg-zinc-900/90 p-3.5 rounded-2xl border border-orange-500/40 flex items-center justify-center shadow-lg">
             <span className="text-2xl">🛒</span>
           </div>
         </div>
       </div>
 
-      {/* 2. Section Header */}
+      {/* Category Filter */}
+      <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-none">
+        {categories.map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setSelectedCategory(cat)}
+            className={`px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
+              selectedCategory === cat
+                ? "bg-orange-500 text-black shadow-[0_0_15px_rgba(249,115,22,0.4)]"
+                : "bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-white"
+            }`}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      {/* Section Header */}
       <div className="flex justify-between items-center px-1">
         <div>
           <h3 className="text-lg font-bold bg-gradient-to-r from-orange-400 to-amber-500 bg-clip-text text-transparent">
-            รายการสินค้าแบบ 3D แนะนำ
+            รายการสินค้าแบบ 3D
           </h3>
-          <p className="text-xs text-zinc-400">พบ {filteredProducts.length} รายการ (ลองแตะเพื่อหมุน)</p>
+          <p className="text-xs text-zinc-400">พบ {filteredProducts.length} รายการ (แตะค้างแล้วหมุนเพื่อดู 360°)</p>
         </div>
         <Link
           href="/product"
@@ -111,7 +123,7 @@ export default function HomePage() {
         </Link>
       </div>
 
-      {/* 3. Product Grid (Dark & Orange Theme) */}
+      {/* Product Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {filteredProducts.map((item) => (
           <div
@@ -124,34 +136,27 @@ export default function HomePage() {
                 : "border-zinc-800 hover:border-zinc-700"
             }`}
           >
-            {/* 3D Model Viewer Container */}
+            {/* 3D Model Viewer Container (แก้ปัญหา TypeScript Error) */}
             <div className="w-full h-48 rounded-xl relative overflow-hidden bg-zinc-950 border border-zinc-800">
-              
-              {/* @ts-ignore */}
-              <model-viewer
-                src={item.modelSrc}
-                alt={`3D model of ${item.name}`}
-                ar
-                auto-rotate
-                camera-controls
-                touch-action="pan-y"
-                poster={item.image} //Fallback 2D Image while loading
+              <div
                 className="w-full h-full"
-                seamless-poster
-                interaction-prompt="none"
-                style={{ "--poster-color": "transparent" }} // Custom styles
-              >
-                {/* 3D Loading Placeholder */}
-                <div slot="poster" className="absolute inset-0 flex items-center justify-center bg-zinc-950">
-                  <img src={item.image} alt="fallback" className="w-full h-full object-cover opacity-50 blur-sm" />
-                  <div className="absolute flex flex-col items-center gap-2">
-                    <span className="w-6 h-6 rounded-full border-2 border-orange-500/30 border-t-orange-500 animate-spin" />
-                    <span className="text-[10px] text-zinc-500 font-mono tracking-wider">LOADING 3D...</span>
-                  </div>
-                </div>
-              </model-viewer>
+                dangerouslySetInnerHTML={{
+                  __html: `
+                    <model-viewer
+                      src="${item.modelSrc}"
+                      alt="3D model of ${item.name}"
+                      ar
+                      auto-rotate
+                      camera-controls
+                      touch-action="pan-y"
+                      poster="${item.image}"
+                      style="width: 100%; height: 100%; --poster-color: transparent;"
+                    ></model-viewer>
+                  `,
+                }}
+              />
 
-              <span className={`absolute top-2 left-2 px-2.5 py-1 rounded-full border text-[10px] font-bold backdrop-blur-md ${item.badgeStyle} z-10`}>
+              <span className={`absolute top-2 left-2 px-2.5 py-1 rounded-full border text-[10px] font-bold backdrop-blur-md ${item.badgeStyle} z-10 pointer-events-none`}>
                 📦 {item.category}
               </span>
             </div>
@@ -170,7 +175,6 @@ export default function HomePage() {
                   ฿{item.price}
                 </span>
                 
-                {/* Action Buttons */}
                 <div className="flex items-center gap-1.5">
                   <button 
                     className="p-1.5 bg-orange-500/10 hover:bg-orange-500 hover:text-black text-orange-400 rounded-xl border border-orange-500/30 transition shadow-sm active:scale-90"
@@ -188,7 +192,7 @@ export default function HomePage() {
         ))}
       </div>
 
-      {/* Experimental Floating Dock Navigation (Dark Orange Theme) */}
+      {/* Floating Bottom Dock */}
       <div className="fixed bottom-5 left-1/2 -translate-x-1/2 w-[90%] max-w-sm bg-zinc-900/90 backdrop-blur-xl border border-orange-500/30 shadow-[0_10px_30px_rgba(0,0,0,0.8)] rounded-full p-2.5 flex justify-around items-center z-50">
         <Link href="/home" className="flex flex-col items-center gap-0.5 text-xs font-bold text-orange-400 px-4 py-1 rounded-full bg-orange-500/10 border border-orange-500/20">
           <span className="text-lg">🏠</span>
