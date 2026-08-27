@@ -20,7 +20,7 @@ const mockProducts: Product[] = [
     seller: "นายสมชาย (ปวส.2)", 
     category: "หนังสือ", 
     image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=500&q=80",
-    badgeStyle: "bg-pink-500/20 text-pink-400 border-pink-500/30" 
+    badgeStyle: "bg-orange-500/20 text-orange-400 border-orange-500/40" 
   },
   { 
     id: 2, 
@@ -29,7 +29,7 @@ const mockProducts: Product[] = [
     seller: "นางสาวสมหญิง (ปวช.3)", 
     category: "เสื้อผ้า", 
     image: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500&q=80",
-    badgeStyle: "bg-purple-500/20 text-purple-400 border-purple-500/30" 
+    badgeStyle: "bg-amber-500/20 text-amber-400 border-amber-500/40" 
   },
   { 
     id: 3, 
@@ -38,7 +38,7 @@ const mockProducts: Product[] = [
     seller: "อนันต์ (ปวส.1)", 
     category: "อุปกรณ์การเรียน", 
     image: "https://images.unsplash.com/photo-1594980596870-8aa52a78d8cd?w=500&q=80",
-    badgeStyle: "bg-cyan-500/20 text-cyan-400 border-cyan-500/30" 
+    badgeStyle: "bg-orange-500/20 text-orange-400 border-orange-500/40" 
   },
   { 
     id: 4, 
@@ -47,7 +47,7 @@ const mockProducts: Product[] = [
     seller: "กิตติ (ปวช.2)", 
     category: "ไอที", 
     image: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=500&q=80",
-    badgeStyle: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" 
+    badgeStyle: "bg-amber-500/20 text-amber-400 border-amber-500/40" 
   },
   { 
     id: 5, 
@@ -56,7 +56,7 @@ const mockProducts: Product[] = [
     seller: "เมษา (ปวส.2)", 
     category: "ศิลปะ", 
     image: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=500&q=80",
-    badgeStyle: "bg-amber-500/20 text-amber-400 border-amber-500/30" 
+    badgeStyle: "bg-orange-500/20 text-orange-400 border-orange-500/40" 
   },
   { 
     id: 6, 
@@ -65,7 +65,7 @@ const mockProducts: Product[] = [
     seller: "พีระ (ปวส.1)", 
     category: "ไอที", 
     image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80",
-    badgeStyle: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" 
+    badgeStyle: "bg-amber-500/20 text-amber-400 border-amber-500/40" 
   },
   { 
     id: 7, 
@@ -74,7 +74,7 @@ const mockProducts: Product[] = [
     seller: "ชนินทร์ (ปวช.3)", 
     category: "แฟชั่น", 
     image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&q=80",
-    badgeStyle: "bg-indigo-500/20 text-indigo-400 border-indigo-500/30" 
+    badgeStyle: "bg-orange-500/20 text-orange-400 border-orange-500/40" 
   },
   { 
     id: 8, 
@@ -83,7 +83,7 @@ const mockProducts: Product[] = [
     seller: "นภัส (ปวส.2)", 
     category: "อุปกรณ์การเรียน", 
     image: "https://images.unsplash.com/photo-1534353473418-4cfa6c56fd38?w=500&q=80",
-    badgeStyle: "bg-cyan-500/20 text-cyan-400 border-cyan-500/30" 
+    badgeStyle: "bg-amber-500/20 text-amber-400 border-amber-500/40" 
   },
 ];
 
@@ -97,22 +97,23 @@ export default function HomePage() {
   };
 
   return (
-    <div className="pb-28 space-y-6">
-      {/* Hero Banner */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-violet-600 via-indigo-600 to-pink-500 p-6 text-white shadow-xl shadow-indigo-500/20">
+    <div className="pb-28 space-y-6 bg-zinc-950 text-zinc-100 min-h-screen p-4 sm:p-6">
+      {/* 1. Dark & Neon Orange Hero Banner */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-zinc-900 via-orange-950/80 to-orange-600/90 border border-orange-500/30 p-6 text-white shadow-[0_0_30px_rgba(249,115,22,0.15)]">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-orange-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 flex justify-between items-center">
           <div>
-            <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-[10px] font-bold tracking-wider uppercase mb-2">
-              ✨ HOT DEALS TODAY
+            <span className="inline-block px-3 py-1 bg-orange-500/20 border border-orange-500/40 rounded-full text-[10px] font-bold tracking-wider text-orange-400 uppercase mb-2">
+              ⚡ HOT DEALS TODAY
             </span>
-            <h2 className="text-2xl font-black tracking-tight">ตลาดนัดวิทยาลัย</h2>
-            <p className="text-xs text-white/80 mt-1">ซื้อ-ขาย แลกเปลี่ยนของใช้และอุปกรณ์การเรียน</p>
+            <h2 className="text-2xl font-black tracking-tight text-white drop-shadow">ตลาดนัดวิทยาลัย</h2>
+            <p className="text-xs text-zinc-400 mt-1">ซื้อ-ขาย แลกเปลี่ยนของใช้และอุปกรณ์การเรียน</p>
           </div>
-          {/* Cart Icon in Banner */}
-          <div className="relative bg-white/10 backdrop-blur-md p-3 rounded-2xl border border-white/20 flex items-center justify-center">
+          {/* Cart Icon inside Banner */}
+          <div className="relative bg-zinc-900/90 p-3.5 rounded-2xl border border-orange-500/40 flex items-center justify-center shadow-lg">
             <span className="text-2xl">🛒</span>
             {cartCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-pink-500 text-white font-extrabold text-[10px] w-5 h-5 rounded-full flex items-center justify-center shadow-md animate-bounce">
+              <span className="absolute -top-1.5 -right-1.5 bg-orange-500 text-black font-black text-[10px] w-5 h-5 rounded-full flex items-center justify-center shadow-md animate-bounce">
                 {cartCount}
               </span>
             )}
@@ -120,37 +121,37 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Header Bar */}
+      {/* 2. Section Header */}
       <div className="flex justify-between items-center px-1">
         <div>
-          <h3 className="text-lg font-bold bg-gradient-to-r from-indigo-500 to-pink-500 bg-clip-text text-transparent">
+          <h3 className="text-lg font-bold bg-gradient-to-r from-orange-400 to-amber-500 bg-clip-text text-transparent">
             รายการสินค้าแนะนำ
           </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400">อัปเดตล่าสุด {mockProducts.length} รายการ</p>
+          <p className="text-xs text-zinc-400">อัปเดตล่าสุด {mockProducts.length} รายการ</p>
         </div>
         <Link
           href="/product"
-          className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white text-xs font-bold px-3.5 py-2 rounded-xl shadow-md shadow-indigo-500/25 active:scale-95 transition"
+          className="bg-orange-500 hover:bg-orange-600 text-black text-xs font-black px-4 py-2 rounded-xl shadow-[0_0_15px_rgba(249,115,22,0.4)] active:scale-95 transition"
         >
           + ลงขายสินค้า
         </Link>
       </div>
 
-      {/* 3D Product Grid with Real Images & Cart Action */}
+      {/* 3. Product Grid (Dark & Orange Theme) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {mockProducts.map((item) => (
           <div
             key={item.id}
             onMouseEnter={() => setHoveredId(item.id)}
             onMouseLeave={() => setHoveredId(null)}
-            className={`group bg-white dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700/80 rounded-2xl p-3.5 shadow-sm transition-all duration-300 transform cursor-pointer ${
+            className={`group bg-zinc-900/90 border rounded-2xl p-3.5 transition-all duration-300 transform cursor-pointer ${
               hoveredId === item.id
-                ? "-translate-y-2 scale-[1.02] shadow-xl shadow-indigo-500/15 border-indigo-500/40"
-                : "hover:shadow-md"
+                ? "-translate-y-2 scale-[1.02] shadow-[0_0_20px_rgba(249,115,22,0.3)] border-orange-500/80"
+                : "border-zinc-800 hover:border-zinc-700"
             }`}
           >
-            {/* Real Image Preview */}
-            <div className="w-full h-44 rounded-xl relative overflow-hidden bg-slate-100 dark:bg-slate-900">
+            {/* Image Box */}
+            <div className="w-full h-44 rounded-xl relative overflow-hidden bg-zinc-950 border border-zinc-800">
               <img 
                 src={item.image} 
                 alt={item.name} 
@@ -163,28 +164,28 @@ export default function HomePage() {
 
             {/* Product Details */}
             <div className="mt-3 space-y-1.5">
-              <h4 className="font-bold text-sm line-clamp-1 group-hover:text-indigo-500 transition">
+              <h4 className="font-bold text-sm text-zinc-100 line-clamp-1 group-hover:text-orange-400 transition">
                 {item.name}
               </h4>
-              <p className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1">
+              <p className="text-xs text-zinc-400 flex items-center gap-1">
                 <span>👤</span> {item.seller}
               </p>
               
-              <div className="flex justify-between items-center pt-2.5 border-t border-slate-100 dark:border-slate-700/60">
-                <span className="text-base font-black bg-gradient-to-r from-indigo-500 to-pink-500 bg-clip-text text-transparent">
+              <div className="flex justify-between items-center pt-2.5 border-t border-zinc-800">
+                <span className="text-base font-black text-orange-400">
                   ฿{item.price}
                 </span>
                 
-                {/* Cart & Detail Buttons */}
+                {/* Action Buttons */}
                 <div className="flex items-center gap-1.5">
                   <button 
                     onClick={() => addToCart(item.name)}
-                    className="p-1.5 bg-indigo-50 dark:bg-indigo-950/60 hover:bg-indigo-600 hover:text-white text-indigo-600 dark:text-indigo-400 rounded-xl transition shadow-sm active:scale-90"
+                    className="p-1.5 bg-orange-500/10 hover:bg-orange-500 hover:text-black text-orange-400 rounded-xl border border-orange-500/30 transition shadow-sm active:scale-90"
                     title="ใส่ตะกร้า"
                   >
                     🛒
                   </button>
-                  <button className="text-xs font-bold text-white bg-slate-900 dark:bg-slate-700 hover:bg-indigo-600 px-3 py-1.5 rounded-xl shadow-sm transition">
+                  <button className="text-xs font-bold text-black bg-orange-500 hover:bg-orange-400 px-3 py-1.5 rounded-xl shadow-[0_0_10px_rgba(249,115,22,0.3)] transition">
                     รายละเอียด
                   </button>
                 </div>
@@ -194,17 +195,17 @@ export default function HomePage() {
         ))}
       </div>
 
-      {/* Experimental Floating Dock Navigation */}
-      <div className="fixed bottom-5 left-1/2 -translate-x-1/2 w-[90%] max-w-sm glass-effect dark:bg-slate-900/90 border border-white/20 dark:border-slate-700 shadow-2xl rounded-full p-2.5 flex justify-around items-center z-50">
-        <Link href="/home" className="flex flex-col items-center gap-0.5 text-xs font-bold text-indigo-500 px-3 py-1 rounded-full bg-indigo-500/10">
+      {/* 4. Bottom Dock Navigation (Dark Orange Theme) */}
+      <div className="fixed bottom-5 left-1/2 -translate-x-1/2 w-[90%] max-w-sm bg-zinc-900/90 backdrop-blur-xl border border-orange-500/30 shadow-[0_10px_30px_rgba(0,0,0,0.8)] rounded-full p-2.5 flex justify-around items-center z-50">
+        <Link href="/home" className="flex flex-col items-center gap-0.5 text-xs font-bold text-orange-400 px-4 py-1 rounded-full bg-orange-500/10 border border-orange-500/20">
           <span className="text-lg">🏠</span>
           <span>หน้าหลัก</span>
         </Link>
-        <Link href="/product" className="flex flex-col items-center gap-0.5 text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-indigo-500 transition">
+        <Link href="/product" className="flex flex-col items-center gap-0.5 text-xs font-medium text-zinc-400 hover:text-orange-400 transition">
           <span className="text-lg">➕</span>
           <span>ลงขาย</span>
         </Link>
-        <div className="relative flex flex-col items-center gap-0.5 text-xs font-medium text-slate-500 dark:text-slate-400 cursor-pointer hover:text-indigo-500 transition">
+        <div className="relative flex flex-col items-center gap-0.5 text-xs font-medium text-zinc-400 hover:text-orange-400 transition cursor-pointer">
           <span className="text-lg">🛒</span>
           <span>ตะกร้า ({cartCount})</span>
         </div>
