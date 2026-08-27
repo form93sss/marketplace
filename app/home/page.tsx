@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 
 // ----------------------------------------------------------------------
-// 1. Loading Screen (CAMPUS ARCHIVE Theme - White to Orange)
+// 1. Loading Screen (CAMPUS ARCHIVE - Dark Orange Theme)
 // ----------------------------------------------------------------------
 function LoadingScreen({ onFinished }: { onFinished: () => void }) {
   const [progress, setProgress] = useState(0);
@@ -62,7 +62,7 @@ function LoadingScreen({ onFinished }: { onFinished: () => void }) {
 }
 
 // ----------------------------------------------------------------------
-// 2. Types & Data Definition
+// 2. Types & Expanded Anime/Manga Data
 // ----------------------------------------------------------------------
 interface Product {
   id: number;
@@ -100,7 +100,7 @@ const mockProducts: Product[] = [
     seller: "นายสมชาย (ปวส.2)",
     category: "อนิเมะ & มังงะ",
     image: "https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=600&auto=format&fit=crop",
-    description: "สภาพดีมาก อ่านมือเดียว ไม่มีหน้าขาด"
+    description: "สภาพดีมาก อ่านมือเดียว ไม่มีหน้าขาด ซองใสครบทุกเล่ม"
   },
   {
     id: 2,
@@ -110,17 +110,97 @@ const mockProducts: Product[] = [
     seller: "นางสาวสมหญิง (ปวช.3)",
     category: "อนิเมะ & มังงะ",
     image: "https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=600&auto=format&fit=crop",
-    description: "พร้อมของแถมโปสการ์ดรอบพรีออเดอร์"
+    description: "พร้อมของแถมโปสการ์ดรอบพรีออเดอร์ สภาพสะสมสวยๆ"
   },
   {
     id: 3,
-    name: "Demon Slayer (ดาบพิฆาตอสูร) ยกเซ็ต",
+    name: "Demon Slayer (ดาบพิฆาตอสูร) ยกเซ็ต 1-23",
     author: "KOYOHARU GOTOUGE",
     price: 1650,
     seller: "กิตติพงษ์ (ปวส.1)",
     category: "อนิเมะ & มังงะ",
     image: "https://images.unsplash.com/photo-1618336753974-aae8e04506aa?q=80&w=600&auto=format&fit=crop",
-    description: "เล่ม 1-23 จบ สภาพบ้านสวยๆ"
+    description: "เล่ม 1-23 จบ สภาพบ้านสวยๆ ไม่มีรอยขีดเขียน"
+  },
+  {
+    id: 4,
+    name: "Tokyo Revengers (โตเกียว รีベンเจอร์ส) 1-31 จบ",
+    author: "KEN WAKUI",
+    price: 2100,
+    seller: "อาร์ม สตรีทไลฟ์",
+    category: "อนิเมะ & มังงะ",
+    image: "https://images.unsplash.com/photo-1563089145-599997674d42?q=80&w=600&auto=format&fit=crop",
+    description: "แก๊งค์โตมันยกชุด สภาพกริบ 99% ใส่ซองกันรอยให้ทุกเล่ม"
+  },
+  {
+    id: 5,
+    name: "Blue Lock (ขังหลงโกล) เล่ม 1-22",
+    author: "MUNEYUKI KANESHIRO",
+    price: 1550,
+    seller: "บอลมังงะ (ปี 2)",
+    category: "อนิเมะ & มังงะ",
+    image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=600&auto=format&fit=crop",
+    description: "มังงะฟุตบอลสุดเดือด เล่ม 1-22 สภาพมือหนึ่งในซอง"
+  },
+  {
+    id: 6,
+    name: "Attack on Titan (ผ่าพิภพไททัน) 1-34 จบ Boxset",
+    author: "HAJIME ISAYAMA",
+    price: 3200,
+    seller: "คลังไททัน TH",
+    category: "อนิเมะ & มังงะ",
+    image: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=600&auto=format&fit=crop",
+    description: "บ็อกเซ็ตครบชุด สภาพมือสองเกรด A+ หายากมากน่าสะสม"
+  },
+  {
+    id: 7,
+    name: "One Piece Vol.100-105 Set",
+    author: "EIICHIRO ODA",
+    price: 450,
+    seller: "แฟนวันพีซ 90s",
+    category: "อนิเมะ & มังงะ",
+    image: "https://images.unsplash.com/photo-1612036782180-6f0b6cd846fe?q=80&w=600&auto=format&fit=crop",
+    description: "ภาควาโนะคุนิช่วงพีค สภาพใหม่กริบ อ่านรอบเดียว"
+  },
+  {
+    id: 8,
+    name: "My Hero Academia Vol.1-38",
+    author: "KOHEI HORIKOSHI",
+    price: 2400,
+    seller: "โอตาคุ สายบวก",
+    category: "อนิเมะ & มังงะ",
+    image: "https://images.unsplash.com/photo-1560972550-aba3456b5564?q=80&w=600&auto=format&fit=crop",
+    description: "มายฮีโร่อคาเดเมีย ยกเซ็ตยาวๆ 38 เล่ม สภาพเก็บสะสม"
+  },
+  {
+    id: 9,
+    name: "Bleach (บลีช เทพมรณะ) ฉบับ Big Book 1-26",
+    author: "TITE KUBO",
+    price: 2900,
+    seller: "Retro Manga",
+    category: "อนิเมะ & มังงะ",
+    image: "https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?q=80&w=600&auto=format&fit=crop",
+    description: "พิมพ์ใหญ่ Big Book กระดาษถนอมสายตา สภาพ 95%"
+  },
+  {
+    id: 10,
+    name: "Solo Leveling นิยาย/มังฮวา Vol.1-5",
+    author: "DUBU / CHU-GONG",
+    price: 1850,
+    seller: "Hunter Archive",
+    category: "นิยาย & ซีรีส์",
+    image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=600&auto=format&fit=crop",
+    description: "เวอร์ชันสี่สีทั้งเล่ม งานภาพอลังการ สภาพใหม่กริบ"
+  },
+  {
+    id: 11,
+    name: "Hunter x Hunter เล่ม 1-36",
+    author: "YOSHIHIRO TOGASHI",
+    price: 2750,
+    seller: "อาจารย์กิต",
+    category: "อนิเมะ & มังงะ",
+    image: "https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=600&auto=format&fit=crop",
+    description: "ฮันเตอร์ x ฮันเตอร์ การ์ดเกมระดับตำนาน เล่ม 1-36 ครบ"
   }
 ];
 
@@ -168,6 +248,14 @@ export default function HomePage() {
   const totalCartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
   const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
+  // Filter Logic
+  const filteredProducts = mockProducts.filter((p) => {
+    const matchesCategory = selectedCategory === "ทั้งหมด" || p.category === selectedCategory;
+    const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                          p.author.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
+
   if (isLoading) {
     return <LoadingScreen onFinished={() => setIsLoading(false)} />;
   }
@@ -176,7 +264,6 @@ export default function HomePage() {
     <div className="min-h-screen bg-[#080808] text-zinc-100 font-sans selection:bg-orange-500 selection:text-white pb-24">
       {/* Navbar ด้านบน */}
       <header className="w-full bg-[#0a0a0a]/90 backdrop-blur-md border-b border-zinc-900 sticky top-0 z-40 px-4 md:px-8 py-4 flex items-center justify-between">
-        {/* LOGO */}
         <div className="flex flex-col">
           <span className="text-[9px] font-bold text-orange-500 tracking-widest uppercase">EST. 2026</span>
           <h1 className="text-xl md:text-2xl font-black tracking-tight text-white flex items-center gap-1">
@@ -184,7 +271,6 @@ export default function HomePage() {
           </h1>
         </div>
 
-        {/* Right Nav Options */}
         <div className="flex items-center gap-4 text-xs font-bold">
           <button className="flex items-center gap-1 text-zinc-400 hover:text-white transition-colors">
             <span className="w-2 h-2 rounded-full bg-cyan-400 inline-block"></span> TH
@@ -210,10 +296,9 @@ export default function HomePage() {
 
       {/* Main Container */}
       <main className="max-w-7xl mx-auto px-4 md:px-8 pt-6">
-        {/* Featured Banner (ธีมดำ-ส้ม) */}
+        {/* Featured Banner */}
         <div className="relative w-full bg-[#0f0e0f] rounded-3xl p-6 md:p-10 border border-orange-500/40 shadow-[0_0_40px_rgba(249,115,22,0.15)] overflow-hidden mb-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
-            {/* ฝั่งซ้าย: ข้อมูลสินค้าแนะนำ */}
             <div className="lg:col-span-7 space-y-4">
               <span className="inline-block bg-orange-950/60 text-orange-400 text-[10px] font-extrabold px-3 py-1 rounded-full border border-orange-800/60 tracking-wider uppercase">
                 RECOMMENDED ARCHIVE
@@ -255,7 +340,6 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* ฝั่งขวา: การ์ดรูป 3D ARCHIVE DISPLAY */}
             <div className="lg:col-span-5 flex justify-center">
               <div className="relative w-full max-w-sm h-[320px] rounded-2xl overflow-hidden border-2 border-orange-500/80 shadow-[0_0_30px_rgba(249,115,22,0.3)] group">
                 <div className="absolute top-3 left-3 z-10 bg-black/70 backdrop-blur-md text-orange-400 text-[10px] font-extrabold px-3 py-1 rounded-md border border-orange-500/40 flex items-center gap-1">
@@ -272,20 +356,18 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Filter Bar ด้านล่าง */}
+        {/* Filter Bar */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
-          {/* ช่องค้นหา */}
           <div className="w-full md:w-72 relative">
             <input
               type="text"
-              placeholder="ค้นหาชื่อหนังสือ, มังงะ..."
+              placeholder="ค้นหาชื่อเรื่อง, ผู้แต่ง..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-zinc-900/90 border border-zinc-800 text-xs text-white px-4 py-2.5 rounded-xl focus:outline-none focus:border-orange-500 transition-colors"
             />
           </div>
 
-          {/* หมวดหมู่สินค้า */}
           <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto scrollbar-none pb-1">
             <span className="text-xs text-zinc-500 font-bold whitespace-nowrap mr-1">เรียงลำดับ: ปกติ</span>
             {categories.map((cat) => (
@@ -304,44 +386,44 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Product Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {mockProducts.map((product) => (
+        {/* Product Grid (12 Items) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {filteredProducts.map((product) => (
             <div 
               key={product.id}
               className="bg-[#0f0e0f] border border-zinc-800/80 hover:border-orange-500/50 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-[0_0_20px_rgba(249,115,22,0.2)] flex flex-col justify-between group"
             >
-              <div className="relative h-52 bg-zinc-950 overflow-hidden">
+              <div className="relative h-56 bg-zinc-950 overflow-hidden">
                 <img 
                   src={product.image} 
                   alt={product.name} 
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-md text-orange-400 text-[10px] font-bold px-2 py-1 rounded border border-orange-500/30">
+                <div className="absolute top-3 left-3 bg-black/70 backdrop-blur-md text-orange-400 text-[10px] font-bold px-2 py-1 rounded border border-orange-500/30">
                   {product.category}
                 </div>
               </div>
 
               <div className="p-4 flex-grow flex flex-col justify-between">
                 <div>
-                  <h3 className="font-bold text-sm text-zinc-100 group-hover:text-orange-500 transition-colors line-clamp-1">
+                  <h3 className="font-bold text-sm text-zinc-100 group-hover:text-orange-500 transition-colors line-clamp-2">
                     {product.name}
                   </h3>
-                  <p className="text-[11px] text-zinc-400 mt-1">ผู้ขาย: {product.seller}</p>
+                  <p className="text-[11px] text-zinc-400 mt-1">AUTHOR: {product.author}</p>
                 </div>
 
                 <div className="mt-4 flex items-center justify-between pt-3 border-t border-zinc-800/60">
                   <span className="text-lg font-black text-orange-500">฿{product.price}</span>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1.5">
                     <button 
                       onClick={() => setSelectedProduct(product)}
-                      className="px-3 py-1.5 bg-zinc-800 text-zinc-200 text-xs font-bold rounded-lg hover:bg-zinc-700 transition-all"
+                      className="px-2.5 py-1.5 bg-zinc-800 text-zinc-200 text-xs font-bold rounded-lg hover:bg-zinc-700 transition-all"
                     >
                       รายละเอียด
                     </button>
                     <button 
                       onClick={() => addToCart(product)}
-                      className="px-3 py-1.5 bg-orange-500 hover:bg-orange-400 text-white text-xs font-bold rounded-lg transition-all"
+                      className="px-2.5 py-1.5 bg-orange-500 hover:bg-orange-400 text-white text-xs font-bold rounded-lg transition-all"
                     >
                       + ใส่ตะกร้า
                     </button>
@@ -452,6 +534,7 @@ export default function HomePage() {
               {selectedProduct.category}
             </span>
             <h2 className="text-xl font-bold text-zinc-100 mt-2">{selectedProduct.name}</h2>
+            <p className="text-xs text-orange-400 font-semibold">AUTHOR: {selectedProduct.author}</p>
             <p className="text-xs text-zinc-400 mt-1">ผู้ขาย: {selectedProduct.seller}</p>
             <p className="text-xs text-zinc-300 mt-3 bg-zinc-950/60 p-3 rounded-lg border border-zinc-800">
               {selectedProduct.description}
