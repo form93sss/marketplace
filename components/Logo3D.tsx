@@ -4,12 +4,10 @@ import { OrbitControls, Text3D, Center, Float } from "@react-three/drei";
 import { useRef } from "react";
 import * as THREE from "three";
 
-// ชิ้นส่วนโลโก้ 3D
 function LogoMesh() {
   const meshRef = useRef<THREE.Group>(null);
   const ringRef = useRef<THREE.Mesh>(null);
 
-  // หมุนวงแหวนและโลโก้ช้าๆ แบบอัตโนมัติ
   useFrame((_, delta) => {
     if (meshRef.current) meshRef.current.rotation.y += delta * 0.4;
     if (ringRef.current) ringRef.current.rotation.z -= delta * 0.6;
@@ -17,20 +15,20 @@ function LogoMesh() {
 
   return (
     <group ref={meshRef}>
-      {/* ตัวอักษรโลโก้ 3D */}
+      {/* ข้อความโลโก้ KhongManTongMi 3D */}
       <Center>
         <Text3D
           font="https://threejs.org/examples/fonts/helvetiker_bold.typeface.json"
-          size={1.5}
-          height={0.4}
+          size={0.65}
+          height={0.25}
           bevelEnabled
-          bevelThickness={0.05}
-          bevelSize={0.03}
+          bevelThickness={0.03}
+          bevelSize={0.02}
           bevelSegments={5}
         >
-          XYRA
+          KhongManTongMi
           <meshStandardMaterial
-            color="#f97316" // สีส้ม นีออน
+            color="#f97316"
             metalness={0.8}
             roughness={0.2}
             emissive="#ea580c"
@@ -39,11 +37,11 @@ function LogoMesh() {
         </Text3D>
       </Center>
 
-      {/* วงแหวน 3D เรืองแสงล้อมรอบ */}
+      {/* วงแหวน 3D ล้อมรอบ */}
       <mesh ref={ringRef} rotation={[Math.PI / 3, 0, 0]}>
-        <torusGeometry args={[2.6, 0.05, 16, 100]} />
+        <torusGeometry args={[3.2, 0.04, 16, 100]} />
         <meshStandardMaterial
-          color="#fbbf24" // สีทอง-ส้ม
+          color="#fbbf24"
           emissive="#f59e0b"
           emissiveIntensity={1.5}
           wireframe
@@ -53,28 +51,18 @@ function LogoMesh() {
   );
 }
 
-// Canvas หลักสำหรับแสดงผล
 export default function Logo3D() {
   return (
-    <div className="w-full h-80 rounded-2xl bg-zinc-950 border border-orange-500/30 overflow-hidden relative shadow-[0_0_30px_rgba(249,115,22,0.15)]">
-      <div className="absolute top-3 left-4 z-10">
-        <span className="px-3 py-1 bg-orange-500/20 border border-orange-500/40 rounded-full text-[10px] font-bold text-orange-400">
-          3D LOGO PREVIEW (หมุนดูได้)
-        </span>
-      </div>
-
-      <Canvas camera={{ position: [0, 0, 7], fov: 45 }}>
-        {/* แสงสว่างในฉาก */}
-        <ambientLight intensity={0.5} />
+    <div className="w-52 h-14 bg-zinc-900/60 border border-orange-500/40 rounded-xl overflow-hidden relative shadow-[0_0_15px_rgba(249,115,22,0.2)]">
+      <Canvas camera={{ position: [0, 0, 7.5], fov: 45 }}>
+        <ambientLight intensity={0.6} />
         <directionalLight position={[10, 10, 5]} intensity={1.5} color="#fff" />
         <pointLight position={[-10, -10, -5]} intensity={1} color="#f97316" />
 
-        {/* อนิเมชันลอยเบาๆ */}
-        <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
+        <Float speed={2} rotationIntensity={0.3} floatIntensity={0.3}>
           <LogoMesh />
         </Float>
 
-        {/* ควบคุมการหมุนด้วยเมาส์ / นิ้วสัมผัส */}
         <OrbitControls enableZoom={false} autoRotate={false} />
       </Canvas>
     </div>
