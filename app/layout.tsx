@@ -4,7 +4,6 @@ import Link from "next/link";
 import Script from "next/script";
 import dynamic from "next/dynamic";
 
-// โหลด Logo3D แบบ Dynamic สไตล์ 3D สำหรับขวาบน
 const Logo3D = dynamic(() => import("@/components/Logo3D"), { ssr: false });
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -18,23 +17,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="min-h-screen bg-zinc-950 text-zinc-100 transition-colors duration-300 antialiased overflow-x-hidden">
-        {/* Navbar พร้อม 3D Logo "KhongManTongMi" มุมขวาบน */}
-        <header className="sticky top-0 z-50 bg-zinc-950/85 backdrop-blur-md border-b border-orange-500/20 px-6 py-2.5">
+        {/* Header พร้อมโลโก้ 3D ฝั่งซ้ายบน */}
+        <header className="sticky top-0 z-50 bg-zinc-950/85 backdrop-blur-md border-b border-orange-500/20 px-4 py-2">
           <div className="w-full flex justify-between items-center">
-            {/* ซ้ายบน: ชื่อเว็บเดิม */}
-            <Link href="/home" className="flex items-center gap-2.5">
-              <span className="w-9 h-9 rounded-xl bg-gradient-to-tr from-orange-600 to-amber-500 flex items-center justify-center text-black font-black text-sm shadow-[0_0_15px_rgba(249,115,22,0.4)]">
-                CM
-              </span>
-              <span className="font-extrabold text-base bg-gradient-to-r from-orange-400 via-amber-300 to-orange-500 bg-clip-text text-transparent">
-                Campus Marketplace
-              </span>
+            
+            {/* ฝั่งซ้ายบน: โลโก้ 3D (ไอคอน CM หมุนได้ + Campus Marketplace) */}
+            <Link href="/home" className="flex items-center">
+              <Logo3D />
             </Link>
 
-            {/* ขวาบน: 3D Interactive Logo "KhongManTongMi" */}
-            <div className="flex items-center gap-3">
-              <Logo3D />
+            {/* ฝั่งขวาบน: ปุ่ม Dark Theme / Badge */}
+            <div className="px-3 py-1.5 text-xs font-bold rounded-full bg-orange-500/10 text-orange-400 border border-orange-500/30 flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
+              <span>Dark Theme</span>
             </div>
+
           </div>
         </header>
 
