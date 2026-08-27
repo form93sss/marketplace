@@ -2,20 +2,19 @@
 import React, { useState, useEffect } from "react";
 
 // ----------------------------------------------------------------------
-// 1. Component หน้าโหลด (Minimal Typing Effect - White to Orange)
+// 1. Loading Screen (CAMPUS ARCHIVE Theme - White to Orange)
 // ----------------------------------------------------------------------
 function LoadingScreen({ onFinished }: { onFinished: () => void }) {
   const [progress, setProgress] = useState(0);
-  const textToType = "CAMPUS MARKET";
+  const textToType = "CAMPUS ARCHIVE";
   const [displayedText, setDisplayedText] = useState("");
 
   useEffect(() => {
-    // ตัวนับ % การโหลด (0 - 100%)
     const interval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval);
-          setTimeout(onFinished, 500); // โหลดเสร็จเปิดเข้าเว็บ
+          setTimeout(onFinished, 500);
           return 100;
         }
         return prev + 1;
@@ -26,40 +25,36 @@ function LoadingScreen({ onFinished }: { onFinished: () => void }) {
   }, [onFinished]);
 
   useEffect(() => {
-    // เอฟเฟกต์ค่อยๆ พิมพ์ตัวอักษรทีละตัวตาม %
     const charIndex = Math.floor((progress / 100) * textToType.length);
     setDisplayedText(textToType.substring(0, charIndex));
   }, [progress]);
 
   return (
-    <div className="fixed inset-0 z-50 bg-black flex flex-col items-center justify-center select-none overflow-hidden">
-      {/* แสงเรืองแสงสีส้มด้านหลังตรงกลาง */}
-      <div className="absolute w-80 h-80 bg-orange-600/20 rounded-full blur-[120px] pointer-events-none" />
+    <div className="fixed inset-0 z-50 bg-[#0a0a0a] flex flex-col items-center justify-center select-none overflow-hidden">
+      <div className="absolute w-80 h-80 bg-orange-600/15 rounded-full blur-[120px] pointer-events-none" />
 
-      {/* ข้อความชื่อเว็บ ไล่เฉดสีจากขาว -> ส้มอ่อน -> ส้มเข้ม */}
       <div className="relative h-20 flex items-center justify-center mb-2">
-        <h1 className="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-orange-300 to-orange-500 tracking-wider drop-shadow-[0_0_25px_rgba(249,115,22,0.6)]">
+        <h1 className="text-4xl md:text-6xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-white via-orange-400 to-orange-600 drop-shadow-[0_0_25px_rgba(234,88,12,0.6)]">
           {displayedText}
           <span className="inline-block w-1.5 h-10 ml-1.5 bg-orange-500 animate-ping align-middle" />
         </h1>
       </div>
 
-      <p className="text-xs text-orange-400/80 tracking-widest font-mono mb-8 uppercase">
+      <p className="text-xs text-orange-500/80 tracking-widest font-mono mb-8 uppercase">
         POWERED BY NEXT.JS & VERCEL
       </p>
 
-      {/* หลอด Progress Bar ด้านล่าง */}
       <div className="w-64 md:w-80 space-y-2">
         <div className="w-full bg-zinc-900 h-2 rounded-full overflow-hidden border border-orange-500/20 p-[1px]">
           <div
-            className="bg-gradient-to-r from-white via-orange-400 to-orange-500 h-full rounded-full transition-all duration-75 ease-out shadow-[0_0_12px_#f97316]"
+            className="bg-gradient-to-r from-white via-orange-500 to-amber-500 h-full rounded-full transition-all duration-75 ease-out shadow-[0_0_12px_#f97316]"
             style={{ width: `${progress}%` }}
           />
         </div>
 
         <div className="flex justify-between items-center text-[10px] font-mono text-orange-400/70">
           <span>SYSTEM INITIALIZING...</span>
-          <span className="font-bold text-orange-400">{progress}%</span>
+          <span className="font-bold text-orange-500">{progress}%</span>
         </div>
       </div>
     </div>
@@ -67,124 +62,87 @@ function LoadingScreen({ onFinished }: { onFinished: () => void }) {
 }
 
 // ----------------------------------------------------------------------
-// 2. ข้อมูลสินค้าและ Type Definitions
+// 2. Types & Data Definition
 // ----------------------------------------------------------------------
 interface Product {
   id: number;
   name: string;
+  author: string;
   price: number;
   seller: string;
   category: string;
   image: string;
   description: string;
-  badgeStyle: string;
 }
 
 interface CartItem extends Product {
   quantity: number;
 }
 
+const featuredProduct: Product = {
+  id: 100,
+  name: "JUJUTSU KAISEN (มหาเวทย์ผนึกมาร) VOL.1-24",
+  author: "GEGE AKUTAMI",
+  price: 1450,
+  seller: "Kittiphat Archive",
+  category: "อนิเมะ & มังงะ",
+  image: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=800&auto=format&fit=crop",
+  description: "มังงะมหาเวทย์ผนึกมาร เล่ม 1-24 สภาพสะสมกริบๆ เก็บในซองอย่างดี ไม่เคยเปียกน้ำ ไม่มีรอยพับ สภาพ 98%+"
+};
+
 const mockProducts: Product[] = [
-  { 
-    id: 1, 
-    name: "เครื่องคิดเลขวิทยาศาสตร์ Casio", 
-    price: 450, 
-    seller: "นางสาวสมหญิง (ปวช.3)", 
-    category: "อุปกรณ์การเรียน", 
-    image: "https://images.unsplash.com/photo-1594980596870-8aa52a78d8cd?q=80&w=600&auto=format&fit=crop",
-    description: "รุ่น fx-991EX คำนวณเมทริกซ์และสถิติได้ สภาพ 95% พร้อมฝาครอบ",
-    badgeStyle: "bg-amber-500/20 text-amber-400 border-amber-500/40" 
+  featuredProduct,
+  {
+    id: 1,
+    name: "Chainsaw Man Vol.1-12 ครบชุด",
+    author: "TATSUKI FUJIMOTO",
+    price: 890,
+    seller: "นายสมชาย (ปวส.2)",
+    category: "อนิเมะ & มังงะ",
+    image: "https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=600&auto=format&fit=crop",
+    description: "สภาพดีมาก อ่านมือเดียว ไม่มีหน้าขาด"
   },
-  { 
-    id: 2, 
-    name: "ชุดวงเวียนเขียนแบบสถาปัตย์", 
-    price: 280, 
-    seller: "นายธีระ (ปวส.1)", 
-    category: "อุปกรณ์การเรียน", 
-    image: "https://images.unsplash.com/photo-1585336261026-8f5786372969?q=80&w=600&auto=format&fit=crop",
-    description: "ชุดกล่องเหล็กอุปกรณ์ครบ สภาพใหม่ เข็มตรง หัวจับปากกาหมึกเขียนแบบได้",
-    badgeStyle: "bg-amber-500/20 text-amber-400 border-amber-500/40" 
+  {
+    id: 2,
+    name: "Spy x Family Vol.1-10",
+    author: "TATSUYA ENDO",
+    price: 750,
+    seller: "นางสาวสมหญิง (ปวช.3)",
+    category: "อนิเมะ & มังงะ",
+    image: "https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=600&auto=format&fit=crop",
+    description: "พร้อมของแถมโปสการ์ดรอบพรีออเดอร์"
   },
-  { 
-    id: 3, 
-    name: "โคมไฟอ่านหนังสือตั้งโต๊ะ LED", 
-    price: 190, 
-    seller: "กิตติพงษ์ (ปวช.2)", 
-    category: "อุปกรณ์การเรียน", 
-    image: "https://images.unsplash.com/photo-1534073828943-f801091bb18c?q=80&w=600&auto=format&fit=crop",
-    description: "ชาร์จ USB ได้ ปรับความสว่างได้ 3 ระดับ ถนอมสายตา พับเก็บสะดวก",
-    badgeStyle: "bg-amber-500/20 text-amber-400 border-amber-500/40" 
-  },
-  { 
-    id: 4, 
-    name: "ไม้บรรทัดเหล็กยาว 30 ซม. (แพ็ก 3 ชิ้น)", 
-    price: 60, 
-    seller: "ศิริพร (ปวช.1)", 
-    category: "อุปกรณ์การเรียน", 
-    image: "https://images.unsplash.com/photo-1588665555327-a67c73b3cc23?q=80&w=600&auto=format&fit=crop",
-    description: "สเกลชัดเจน ตัวเลขไม่ลอก สแตนเลสหนา ไม่หักง่าย",
-    badgeStyle: "bg-amber-500/20 text-amber-400 border-amber-500/40" 
-  },
-  { 
-    id: 5, 
-    name: "ปากกาไฮไลต์สีพาสเทล 6 สี", 
-    price: 85, 
-    seller: "นลินี (ปวส.2)", 
-    category: "อุปกรณ์การเรียน", 
-    image: "https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?q=80&w=600&auto=format&fit=crop",
-    description: "แห้งไว ไม่ซึมทะลุกระดาษ สีสวยอ่านสบายตา หมึกเต็มทุกแท่ง",
-    badgeStyle: "bg-amber-500/20 text-amber-400 border-amber-500/40" 
-  },
-  { 
-    id: 6, 
-    name: "สมุดโน้ตปกหนังริมห่วง A5", 
-    price: 120, 
-    seller: "อนุพงษ์ (ปวส.1)", 
-    category: "อุปกรณ์การเรียน", 
-    image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=600&auto=format&fit=crop",
-    description: "กระดาษถนอมสายตา 80 แกรม หนา 100 แผ่น พร้อมสายรัดกันเปิด",
-    badgeStyle: "bg-amber-500/20 text-amber-400 border-amber-500/40" 
-  },
-  { 
-    id: 7, 
-    name: "กระเป๋าใส่ดินสอความจุสูง", 
-    price: 110, 
-    seller: "เมธาพร (ปวช.3)", 
-    category: "อุปกรณ์การเรียน", 
-    image: "https://images.unsplash.com/photo-1568805610918-f36c347f3b61?q=80&w=600&auto=format&fit=crop",
-    description: "ผ้าแคนวาสทนทาน ใส่ปากกาได้มากกว่า 40 แท่ง มีช่องแยกหลายชั้น",
-    badgeStyle: "bg-amber-500/20 text-amber-400 border-amber-500/40" 
-  },
-  { 
-    id: 8, 
-    name: "แท่นตัดกระดาษขนาด A4", 
-    price: 320, 
-    seller: "วรวุฒิ (ปวส.2)", 
-    category: "อุปกรณ์การเรียน", 
-    image: "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?q=80&w=600&auto=format&fit=crop",
-    description: "ฐานเหล็กสเกลเป๊ะ ใบมีดคม ตัดได้พร้อมกันสูงสุด 10 แผ่น มีตัวล็อคปลอดภัย",
-    badgeStyle: "bg-amber-500/20 text-amber-400 border-amber-500/40" 
-  },
+  {
+    id: 3,
+    name: "Demon Slayer (ดาบพิฆาตอสูร) ยกเซ็ต",
+    author: "KOYOHARU GOTOUGE",
+    price: 1650,
+    seller: "กิตติพงษ์ (ปวส.1)",
+    category: "อนิเมะ & มังงะ",
+    image: "https://images.unsplash.com/photo-1618336753974-aae8e04506aa?q=80&w=600&auto=format&fit=crop",
+    description: "เล่ม 1-23 จบ สภาพบ้านสวยๆ"
+  }
 ];
 
-const categories = ["ทั้งหมด", "อุปกรณ์การเรียน", "หนังสือ", "ไอที", "เสื้อผ้า", "ศิลปะ", "แฟชั่น"];
+const categories = ["ทั้งหมด", "อนิเมะ & มังงะ", "นิยาย & ซีรีส์", "เทคโนโลยี", "จิตวิทยา"];
 
 // ----------------------------------------------------------------------
-// 3. Component หน้าหลัก (Home Page)
+// 3. Main Page Component
 // ----------------------------------------------------------------------
 export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("ทั้งหมด");
+  const [searchQuery, setSearchQuery] = useState("");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  
-  // State สำหรับตะกร้าสินค้า
+
+  // Cart Management
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   const addToCart = (product: Product) => {
     setCart((prevCart) => {
-      const existingItem = prevCart.find((item) => item.id === product.id);
-      if (existingItem) {
+      const existing = prevCart.find((item) => item.id === product.id);
+      if (existing) {
         return prevCart.map((item) =>
           item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
         );
@@ -210,145 +168,199 @@ export default function HomePage() {
   const totalCartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
   const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-  const filteredProducts = mockProducts.filter((product) => {
-    if (selectedCategory === "ทั้งหมด") return true;
-    return product.category === selectedCategory;
-  });
-
   if (isLoading) {
     return <LoadingScreen onFinished={() => setIsLoading(false)} />;
   }
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 p-4 md:p-8 pb-32 relative">
-      {/* Banner ตลาดนัดวิทยาลัย */}
-      <div className="w-full bg-gradient-to-r from-orange-600 via-amber-600 to-orange-500 rounded-2xl p-6 md:p-8 mb-8 shadow-[0_10px_30px_rgba(249,115,22,0.2)] relative overflow-hidden">
-        <div className="relative z-10">
-          <div className="inline-flex items-center gap-2 bg-black/30 backdrop-blur-md px-3 py-1 rounded-full text-xs text-orange-200 border border-orange-400/30 mb-3">
-            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-            3D INTERACTIVE MARKET
-          </div>
-          <h1 className="text-2xl md:text-4xl font-black text-white tracking-tight mb-2">
-            ตลาดนัดวิทยาลัย
+    <div className="min-h-screen bg-[#080808] text-zinc-100 font-sans selection:bg-orange-500 selection:text-white pb-24">
+      {/* Navbar ด้านบน */}
+      <header className="w-full bg-[#0a0a0a]/90 backdrop-blur-md border-b border-zinc-900 sticky top-0 z-40 px-4 md:px-8 py-4 flex items-center justify-between">
+        {/* LOGO */}
+        <div className="flex flex-col">
+          <span className="text-[9px] font-bold text-orange-500 tracking-widest uppercase">EST. 2026</span>
+          <h1 className="text-xl md:text-2xl font-black tracking-tight text-white flex items-center gap-1">
+            CAMPUS <span className="text-orange-500 drop-shadow-[0_0_10px_rgba(249,115,22,0.8)]">ARCHIVE</span>
           </h1>
-          <p className="text-orange-100 text-sm md:text-base font-medium">
-            ซื้อ-ขาย สินค้านักศึกษา หมุนดูแบบ 3D ได้สมจริง
-          </p>
         </div>
-      </div>
 
-      {/* หมวดหมู่สินค้า */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-6 scrollbar-none">
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setSelectedCategory(cat)}
-            className={`px-4 py-2 rounded-xl text-sm font-bold transition-all whitespace-nowrap border ${
-              selectedCategory === cat
-                ? "bg-orange-500 text-black border-orange-400 shadow-[0_0_15px_rgba(249,115,22,0.4)]"
-                : "bg-zinc-900 text-zinc-400 border-zinc-800 hover:border-zinc-700 hover:text-zinc-200"
-            }`}
-          >
-            {cat}
+        {/* Right Nav Options */}
+        <div className="flex items-center gap-4 text-xs font-bold">
+          <button className="flex items-center gap-1 text-zinc-400 hover:text-white transition-colors">
+            <span className="w-2 h-2 rounded-full bg-cyan-400 inline-block"></span> TH
           </button>
-        ))}
-      </div>
-
-      {/* หัวข้อส่วนรายการสินค้า */}
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h2 className="text-lg md:text-xl font-bold text-orange-400 flex items-center gap-2">
-            รายการสินค้าหมวดหมู่ {selectedCategory}
-          </h2>
-          <p className="text-xs text-zinc-400">
-            พบ {filteredProducts.length} รายการ
-          </p>
-        </div>
-        <button className="px-4 py-2 bg-orange-500 hover:bg-orange-400 text-black font-bold text-xs md:text-sm rounded-xl transition-all shadow-md">
-          + ลงขายสินค้า
-        </button>
-      </div>
-
-      {/* Grid รายการสินค้า 8 รายการ */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {filteredProducts.map((product) => (
-          <div
-            key={product.id}
-            className="bg-zinc-900/80 border border-zinc-800/80 hover:border-orange-500/50 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-[0_0_20px_rgba(249,115,22,0.15)] flex flex-col group"
+          
+          <button 
+            onClick={() => setIsCartOpen(true)} 
+            className="flex items-center gap-1.5 text-zinc-300 hover:text-white transition-colors bg-zinc-900 px-3 py-1.5 rounded-lg border border-zinc-800"
           >
-            <div className="relative w-full h-56 bg-zinc-950 overflow-hidden">
-              <span className={`absolute top-3 left-3 z-10 text-[10px] font-bold px-2.5 py-1 rounded-full border backdrop-blur-md ${product.badgeStyle}`}>
-                {product.category}
+            <span>🛒 ตะกร้า</span>
+            {totalCartCount > 0 && (
+              <span className="bg-orange-500 text-white text-[10px] font-black px-1.5 py-0.5 rounded-full">
+                {totalCartCount}
+              </span>
+            )}
+          </button>
+
+          <button className="bg-orange-500 hover:bg-orange-400 text-white font-extrabold px-4 py-2 rounded-lg transition-all shadow-[0_0_15px_rgba(249,115,22,0.4)]">
+            + ฝากขาย
+          </button>
+        </div>
+      </header>
+
+      {/* Main Container */}
+      <main className="max-w-7xl mx-auto px-4 md:px-8 pt-6">
+        {/* Featured Banner (ธีมดำ-ส้ม) */}
+        <div className="relative w-full bg-[#0f0e0f] rounded-3xl p-6 md:p-10 border border-orange-500/40 shadow-[0_0_40px_rgba(249,115,22,0.15)] overflow-hidden mb-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+            {/* ฝั่งซ้าย: ข้อมูลสินค้าแนะนำ */}
+            <div className="lg:col-span-7 space-y-4">
+              <span className="inline-block bg-orange-950/60 text-orange-400 text-[10px] font-extrabold px-3 py-1 rounded-full border border-orange-800/60 tracking-wider uppercase">
+                RECOMMENDED ARCHIVE
               </span>
 
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent" />
-            </div>
+              <h2 className="text-3xl md:text-5xl font-black text-white italic tracking-wide leading-tight uppercase">
+                {featuredProduct.name}
+              </h2>
 
-            <div className="p-4 flex flex-col flex-grow justify-between">
-              <div>
-                <h3 className="font-bold text-base text-zinc-100 line-clamp-1 group-hover:text-orange-400 transition-colors">
-                  {product.name}
-                </h3>
-                <p className="text-xs text-zinc-400 mt-1 flex items-center gap-1">
-                  <span>👤</span> {product.seller}
-                </p>
+              <div className="text-xs font-bold text-zinc-400 flex items-center gap-2">
+                <span>AUTHOR: <strong className="text-orange-500">{featuredProduct.author}</strong></span>
+                <span>|</span>
+                <span>CATEGORY: <strong className="text-orange-500">{featuredProduct.category}</strong></span>
               </div>
 
-              <div className="mt-4 flex items-center justify-between pt-3 border-t border-zinc-800/60">
-                <span className="text-lg font-black text-orange-400">
-                  ฿{product.price}
+              <p className="text-xs md:text-sm text-zinc-300 leading-relaxed font-light">
+                {featuredProduct.description}
+              </p>
+
+              <div className="pt-4 flex flex-wrap items-center gap-4">
+                <span className="text-3xl md:text-4xl font-black text-orange-500 tracking-tight drop-shadow-[0_0_10px_rgba(249,115,22,0.5)]">
+                  ฿{featuredProduct.price}
                 </span>
-                <div className="flex items-center gap-1.5">
+
+                <div className="flex items-center gap-3">
                   <button 
-                    onClick={() => addToCart(product)}
-                    className="p-2 bg-zinc-800 hover:bg-zinc-700 text-orange-400 rounded-lg transition-all"
-                    title="ใส่ตะกร้า"
+                    onClick={() => setSelectedProduct(featuredProduct)}
+                    className="px-5 py-2.5 bg-zinc-800/80 hover:bg-zinc-700 text-white text-xs font-bold rounded-xl border border-zinc-700 transition-all flex items-center gap-1.5"
                   >
-                    🛒
+                    🔍 ดูรายละเอียด
                   </button>
                   <button 
-                    onClick={() => setSelectedProduct(product)}
-                    className="px-3 py-1.5 bg-orange-500 hover:bg-orange-400 text-black text-xs font-bold rounded-lg transition-all"
+                    onClick={() => addToCart(featuredProduct)}
+                    className="px-6 py-2.5 bg-orange-500 hover:bg-orange-400 text-white text-xs font-extrabold rounded-xl transition-all shadow-[0_0_20px_rgba(249,115,22,0.5)] active:scale-95"
                   >
-                    รายละเอียด
+                    + ใส่ตะกร้า
                   </button>
                 </div>
               </div>
             </div>
+
+            {/* ฝั่งขวา: การ์ดรูป 3D ARCHIVE DISPLAY */}
+            <div className="lg:col-span-5 flex justify-center">
+              <div className="relative w-full max-w-sm h-[320px] rounded-2xl overflow-hidden border-2 border-orange-500/80 shadow-[0_0_30px_rgba(249,115,22,0.3)] group">
+                <div className="absolute top-3 left-3 z-10 bg-black/70 backdrop-blur-md text-orange-400 text-[10px] font-extrabold px-3 py-1 rounded-md border border-orange-500/40 flex items-center gap-1">
+                  <span>🔥</span> 3D ARCHIVE DISPLAY
+                </div>
+                <img 
+                  src={featuredProduct.image} 
+                  alt={featuredProduct.name}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+              </div>
+            </div>
           </div>
-        ))}
-      </div>
-
-      {/* ปุ่มกดดูตะกร้าสินค้าลอยมุมขวา */}
-      <button
-        onClick={() => setIsCartOpen(true)}
-        className="fixed bottom-6 right-6 z-40 bg-orange-500 hover:bg-orange-400 text-black font-extrabold p-4 rounded-full shadow-[0_0_25px_rgba(249,115,22,0.5)] transition-transform active:scale-95 flex items-center gap-3 border border-amber-300"
-      >
-        <div className="relative">
-          <span className="text-xl">🛒</span>
-          {totalCartCount > 0 && (
-            <span className="absolute -top-2 -right-2 bg-black text-orange-400 text-xs font-black rounded-full w-5 h-5 flex items-center justify-center border border-orange-500">
-              {totalCartCount}
-            </span>
-          )}
         </div>
-        <span className="text-sm hidden sm:inline">ดูตะกร้าสินค้า</span>
-      </button>
 
-      {/* Drawer ตะกร้าสินค้า */}
+        {/* Filter Bar ด้านล่าง */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
+          {/* ช่องค้นหา */}
+          <div className="w-full md:w-72 relative">
+            <input
+              type="text"
+              placeholder="ค้นหาชื่อหนังสือ, มังงะ..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full bg-zinc-900/90 border border-zinc-800 text-xs text-white px-4 py-2.5 rounded-xl focus:outline-none focus:border-orange-500 transition-colors"
+            />
+          </div>
+
+          {/* หมวดหมู่สินค้า */}
+          <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto scrollbar-none pb-1">
+            <span className="text-xs text-zinc-500 font-bold whitespace-nowrap mr-1">เรียงลำดับ: ปกติ</span>
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setSelectedCategory(cat)}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
+                  selectedCategory === cat
+                    ? "bg-orange-500 text-white shadow-[0_0_15px_rgba(249,115,22,0.4)]"
+                    : "bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Product Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {mockProducts.map((product) => (
+            <div 
+              key={product.id}
+              className="bg-[#0f0e0f] border border-zinc-800/80 hover:border-orange-500/50 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-[0_0_20px_rgba(249,115,22,0.2)] flex flex-col justify-between group"
+            >
+              <div className="relative h-52 bg-zinc-950 overflow-hidden">
+                <img 
+                  src={product.image} 
+                  alt={product.name} 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-md text-orange-400 text-[10px] font-bold px-2 py-1 rounded border border-orange-500/30">
+                  {product.category}
+                </div>
+              </div>
+
+              <div className="p-4 flex-grow flex flex-col justify-between">
+                <div>
+                  <h3 className="font-bold text-sm text-zinc-100 group-hover:text-orange-500 transition-colors line-clamp-1">
+                    {product.name}
+                  </h3>
+                  <p className="text-[11px] text-zinc-400 mt-1">ผู้ขาย: {product.seller}</p>
+                </div>
+
+                <div className="mt-4 flex items-center justify-between pt-3 border-t border-zinc-800/60">
+                  <span className="text-lg font-black text-orange-500">฿{product.price}</span>
+                  <div className="flex items-center gap-2">
+                    <button 
+                      onClick={() => setSelectedProduct(product)}
+                      className="px-3 py-1.5 bg-zinc-800 text-zinc-200 text-xs font-bold rounded-lg hover:bg-zinc-700 transition-all"
+                    >
+                      รายละเอียด
+                    </button>
+                    <button 
+                      onClick={() => addToCart(product)}
+                      className="px-3 py-1.5 bg-orange-500 hover:bg-orange-400 text-white text-xs font-bold rounded-lg transition-all"
+                    >
+                      + ใส่ตะกร้า
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </main>
+
+      {/* Slide-over Cart Modal */}
       {isCartOpen && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex justify-end">
-          <div className="bg-zinc-900 border-l border-zinc-800 w-full max-w-md h-full p-6 flex flex-col justify-between relative shadow-2xl animate-in slide-in-from-right duration-300">
+          <div className="bg-[#0f0e0f] border-l border-zinc-800 w-full max-w-md h-full p-6 flex flex-col justify-between relative shadow-2xl">
             <div>
               <div className="flex items-center justify-between pb-4 border-b border-zinc-800">
-                <h2 className="text-lg font-bold text-orange-400 flex items-center gap-2">
-                  🛒 ตะกร้าสินค้าของคุณ ({totalCartCount})
+                <h2 className="text-lg font-bold text-orange-500 flex items-center gap-2">
+                  🛒 ARCHIVE CART ({totalCartCount})
                 </h2>
                 <button
                   onClick={() => setIsCartOpen(false)}
@@ -362,7 +374,7 @@ export default function HomePage() {
                 {cart.length === 0 ? (
                   <div className="text-center py-12 text-zinc-500">
                     <p className="text-4xl mb-2">🛒</p>
-                    <p className="text-sm">ไม่มีสินค้าในตะกร้า</p>
+                    <p className="text-xs">ไม่มีสินค้าในตะกร้า</p>
                   </div>
                 ) : (
                   cart.map((item) => (
@@ -378,21 +390,21 @@ export default function HomePage() {
                         />
                         <div>
                           <h4 className="font-bold text-xs text-zinc-200 line-clamp-1">{item.name}</h4>
-                          <p className="text-xs text-orange-400 font-bold">฿{item.price}</p>
+                          <p className="text-xs text-orange-500 font-bold">฿{item.price}</p>
                         </div>
                       </div>
 
                       <div className="flex items-center gap-2 bg-zinc-900 px-2 py-1 rounded-lg border border-zinc-800">
                         <button
                           onClick={() => updateQuantity(item.id, -1)}
-                          className="text-zinc-400 hover:text-orange-400 font-bold px-1"
+                          className="text-zinc-400 hover:text-orange-500 font-bold px-1"
                         >
                           -
                         </button>
                         <span className="text-xs font-bold text-zinc-200 w-4 text-center">{item.quantity}</span>
                         <button
                           onClick={() => updateQuantity(item.id, 1)}
-                          className="text-zinc-400 hover:text-orange-400 font-bold px-1"
+                          className="text-zinc-400 hover:text-orange-500 font-bold px-1"
                         >
                           +
                         </button>
@@ -405,24 +417,24 @@ export default function HomePage() {
 
             <div className="pt-4 border-t border-zinc-800">
               <div className="flex justify-between items-center mb-4">
-                <span className="text-sm text-zinc-400">ราคารวมทั้งหมด:</span>
-                <span className="text-2xl font-black text-orange-400">฿{totalPrice}</span>
+                <span className="text-xs text-zinc-400">ราคารวมทั้งหมด:</span>
+                <span className="text-2xl font-black text-orange-500">฿{totalPrice}</span>
               </div>
               <button
                 disabled={cart.length === 0}
-                className="w-full py-3 bg-orange-500 hover:bg-orange-400 disabled:bg-zinc-800 disabled:text-zinc-600 text-black font-extrabold rounded-xl transition-all shadow-lg"
+                className="w-full py-3 bg-orange-500 hover:bg-orange-400 disabled:bg-zinc-800 disabled:text-zinc-600 text-white font-extrabold rounded-xl transition-all shadow-lg"
               >
-                สั่งซื้อสินค้า
+                ยืนยันการสั่งซื้อ
               </button>
             </div>
           </div>
         </div>
       )}
 
-      {/* Modal ป๊อปอัพรายละเอียดสินค้า */}
+      {/* Product Details Modal */}
       {selectedProduct && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-zinc-900 border border-orange-500/30 rounded-2xl max-w-lg w-full p-6 relative shadow-[0_0_30px_rgba(249,115,22,0.2)]">
+          <div className="bg-[#0f0e0f] border border-orange-500/40 rounded-2xl max-w-lg w-full p-6 relative shadow-[0_0_30px_rgba(249,115,22,0.2)]">
             <button
               onClick={() => setSelectedProduct(null)}
               className="absolute top-4 right-4 text-zinc-400 hover:text-white w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center font-bold"
@@ -436,25 +448,25 @@ export default function HomePage() {
                 className="w-full h-full object-cover rounded-xl"
               />
             </div>
-            <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${selectedProduct.badgeStyle}`}>
+            <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-orange-950/60 text-orange-400 border border-orange-800/60">
               {selectedProduct.category}
             </span>
             <h2 className="text-xl font-bold text-zinc-100 mt-2">{selectedProduct.name}</h2>
             <p className="text-xs text-zinc-400 mt-1">ผู้ขาย: {selectedProduct.seller}</p>
-            <p className="text-sm text-zinc-300 mt-3 bg-zinc-950/50 p-3 rounded-lg border border-zinc-800">
+            <p className="text-xs text-zinc-300 mt-3 bg-zinc-950/60 p-3 rounded-lg border border-zinc-800">
               {selectedProduct.description}
             </p>
             <div className="flex items-center justify-between mt-6">
-              <span className="text-2xl font-black text-orange-400">฿{selectedProduct.price}</span>
+              <span className="text-2xl font-black text-orange-500">฿{selectedProduct.price}</span>
               <button 
                 onClick={() => {
                   addToCart(selectedProduct);
                   setSelectedProduct(null);
                   setIsCartOpen(true);
                 }}
-                className="px-6 py-2.5 bg-orange-500 hover:bg-orange-400 text-black font-bold text-sm rounded-xl transition-all shadow-lg"
+                className="px-6 py-2.5 bg-orange-500 hover:bg-orange-400 text-white font-bold text-xs rounded-xl transition-all shadow-lg"
               >
-                หยิบใส่ตะกร้า
+                + หยิบใส่ตะกร้า
               </button>
             </div>
           </div>
