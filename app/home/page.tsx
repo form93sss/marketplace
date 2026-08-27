@@ -18,6 +18,69 @@ interface CartItem extends Product {
 }
 
 const mockProducts: Product[] = [
+  // --- หมวดอุปกรณ์การเรียน (เพิ่มใหม่) ---
+  { 
+    id: 101, 
+    name: "ชุดปากกาเจล M&G 0.5mm (เซ็ต 12 ด้าม)", 
+    price: 89, 
+    seller: "ศิริพร (ปวช.2)", 
+    category: "อุปกรณ์การเรียน", 
+    image: "https://images.unsplash.com/photo-1585336261026-875a66a6ceb2?w=500&q=80",
+    description: "หมึกน้ำเงิน 10 ด้าม + หมึกแดง 2 ด้าม หมึกเข้ม เขียนลื่น ไม่ขาดตอน แถมรีฟิลหมึก 2 แท่ง",
+    badgeStyle: "bg-orange-500/20 text-orange-400 border-orange-500/40" 
+  },
+  { 
+    id: 102, 
+    name: "สมุดโน้ตปกหนัง A5 สไตล์วินเทจ", 
+    price: 125, 
+    seller: "กิตติพงษ์ (ปวส.1)", 
+    category: "อุปกรณ์การเรียน", 
+    image: "https://images.unsplash.com/photo-1544816155-12df9643f363?w=500&q=80",
+    description: "กระดาษถนอมสายตา 100 แกรม ซึมยาก มีสายรัดและที่เสียบปากกา สภาพมือหนึ่งยังไม่เคยใช้",
+    badgeStyle: "bg-orange-500/20 text-orange-400 border-orange-500/40" 
+  },
+  { 
+    id: 103, 
+    name: "ดินสอกด ROTRING 600 (0.5mm) สีดำ", 
+    price: 450, 
+    seller: "ภานุพงศ์ (ปวส.2)", 
+    category: "อุปกรณ์การเรียน", 
+    image: "https://images.unsplash.com/photo-1516962215378-7fa2e137ae93?w=500&q=80",
+    description: "ตัวด้ามทำจากโลหะทั้งแท่ง น้ำหนักดี สภาพ 98% สำหรับสายเขียนแบบและวาดภาพประกอบ",
+    badgeStyle: "bg-orange-500/20 text-orange-400 border-orange-500/40" 
+  },
+  { 
+    id: 104, 
+    name: "เซ็ตปากกาไฮไลท์สีพาสเทล Zebra Mildliner", 
+    price: 160, 
+    seller: "มณฑิรา (ปวช.3)", 
+    category: "อุปกรณ์การเรียน", 
+    image: "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=500&q=80",
+    description: "สีพาสเทลสบายตา 5 สี 2 หัวในด้ามเดียว (หัวตัด + หัวเขียน) หมึกยังแน่นทุกด้าม",
+    badgeStyle: "bg-orange-500/20 text-orange-400 border-orange-500/40" 
+  },
+  { 
+    id: 105, 
+    name: "ชุดเครื่องมือวัดเรขาคณิต & ไม้บรรทัดเหล็ก", 
+    price: 75, 
+    seller: "ชัชวาล (ปวช.1)", 
+    category: "อุปกรณ์การเรียน", 
+    image: "https://images.unsplash.com/photo-1588072432836-e10032774350?w=500&q=80",
+    description: "ประกอบด้วย ไม้โปรแทรกเตอร์, ไม้ฉาก 2 ชิ้น, ไม้บรรทัดเหล็ก 30 ซม. และวงเวียน ครบชุดพร้อมกล่องเหล็ก",
+    badgeStyle: "bg-orange-500/20 text-orange-400 border-orange-500/40" 
+  },
+  { 
+    id: 106, 
+    name: "เทปลบคำผิด PLUS Whiper MR (พร้อมไส้เติม 3 ชิ้น)", 
+    price: 65, 
+    seller: "นภัสสร (ปวส.1)", 
+    category: "อุปกรณ์การเรียน", 
+    image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80",
+    description: "เนื้อเทปเนียนเรียบ ไม่หลุดลอกง่าย กว้าง 5mm ยาว 6m พร้อมรีฟิลสำรองอีก 3 ชิ้น",
+    badgeStyle: "bg-orange-500/20 text-orange-400 border-orange-500/40" 
+  },
+
+  // --- สินค้าเดิม ---
   { 
     id: 1, 
     name: "หนังสือเรียน Next.js 14 & React", 
@@ -26,7 +89,7 @@ const mockProducts: Product[] = [
     category: "หนังสือ", 
     image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=500&q=80",
     description: "หนังสือสภาพ 95% ไม่มีรอยขีดเขียน เหมาะสำหรับผู้เริ่มต้นเขียนเว็บ Next.js 14 App Router",
-    badgeStyle: "bg-orange-500/20 text-orange-400 border-orange-500/40" 
+    badgeStyle: "bg-amber-500/20 text-amber-400 border-amber-500/40" 
   },
   { 
     id: 2, 
@@ -66,7 +129,7 @@ const mockProducts: Product[] = [
     category: "ศิลปะ", 
     image: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=500&q=80",
     description: "กระดานไม้อัดอย่างดี ไม่งอ แถมกระเป๋ากันน้ำใส่กระดานและไม้ที",
-    badgeStyle: "bg-orange-500/20 text-orange-400 border-orange-500/40" 
+    badgeStyle: "bg-amber-500/20 text-amber-400 border-amber-500/40" 
   },
   { 
     id: 6, 
@@ -86,7 +149,7 @@ const mockProducts: Product[] = [
     category: "แฟชั่น", 
     image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&q=80",
     description: "กระเป๋าเป้มีช่องใส่โน้ตบุ๊ก 15.6 นิ้ว ซิปลื่น ผ้ากันน้ำซึม 100%",
-    badgeStyle: "bg-orange-500/20 text-orange-400 border-orange-500/40" 
+    badgeStyle: "bg-amber-500/20 text-amber-400 border-amber-500/40" 
   },
   { 
     id: 8, 
@@ -96,47 +159,7 @@ const mockProducts: Product[] = [
     category: "อุปกรณ์การเรียน", 
     image: "https://images.unsplash.com/photo-1534353473418-4cfa6c56fd38?w=500&q=80",
     description: "ปรับความสว่างได้ 3 ระดับ พับเก็บง่าย พกไปอ่านหอเพื่อนสะดวกมาก",
-    badgeStyle: "bg-amber-500/20 text-amber-400 border-amber-500/40" 
-  },
-  { 
-    id: 9, 
-    name: "คีย์บอร์ดกลไก Mechanical Keyboard RGB", 
-    price: 590, 
-    seller: "ธนกฤต (ปวส.2)", 
-    category: "ไอที", 
-    image: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500&q=80",
-    description: "Blue Switch พิมพ์สนุก ไฟ RGB ปรับได้ 14 โหมด สภาพสวย ไร้ฝุ่น",
     badgeStyle: "bg-orange-500/20 text-orange-400 border-orange-500/40" 
-  },
-  { 
-    id: 10, 
-    name: "พัดลมพกพา ชาร์จแบต USB", 
-    price: 99, 
-    seller: "กัลยา (ปวช.1)", 
-    category: "ของใช้ทั่วไป", 
-    image: "https://images.unsplash.com/photo-1618941723604-96a700b730f3?w=500&q=80",
-    description: "ลมแรงตั้งได้ 3 ระดับ เสียงเงียบ พกพาใส่กระเป๋าสะดวก เหมาะกับเข้าแถวเช้า",
-    badgeStyle: "bg-amber-500/20 text-amber-400 border-amber-500/40" 
-  },
-  { 
-    id: 11, 
-    name: "ตำราโครงสร้างข้อมูล Data Structures", 
-    price: 210, 
-    seller: "วิศรุต (ปวส.2)", 
-    category: "หนังสือ", 
-    image: "https://images.unsplash.com/photo-1532012197267-da84d127e765?w=500&q=80",
-    description: "อธิบายเรื่อง Array, LinkList, Tree, Graph เข้าใจง่าย มีโค้ดภาษา C และ Java ประกอบ",
-    badgeStyle: "bg-orange-500/20 text-orange-400 border-orange-500/40" 
-  },
-  { 
-    id: 12, 
-    name: "แจ็คเก็ตกันลม สตรีทแวร์", 
-    price: 350, 
-    seller: "อัครพล (ปวช.3)", 
-    category: "เสื้อผ้า", 
-    image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&q=80",
-    description: "เสื้อแจ็คเก็ตกันลมสไตล์สตรีท ใส่ขี่มอเตอร์ไซค์มาเรียน เท่ๆ สภาพดีมาก",
-    badgeStyle: "bg-amber-500/20 text-amber-400 border-amber-500/40" 
   },
 ];
 
@@ -145,8 +168,14 @@ export default function HomePage() {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<string>("ทั้งหมด");
 
-  // Cart Functions
+  const categories = ["ทั้งหมด", "อุปกรณ์การเรียน", "หนังสือ", "ไอที", "เสื้อผ้า", "ศิลปะ", "แฟชั่น"];
+
+  const filteredProducts = selectedCategory === "ทั้งหมด" 
+    ? mockProducts 
+    : mockProducts.filter(p => p.category === selectedCategory);
+
   const addToCart = (product: Product) => {
     setCart((prev) => {
       const existing = prev.find((item) => item.id === product.id);
@@ -165,14 +194,13 @@ export default function HomePage() {
 
   const updateQuantity = (id: number, delta: number) => {
     setCart((prev) =>
-      prev
-        .map((item) => {
-          if (item.id === id) {
-            const newQty = item.quantity + delta;
-            return newQty > 0 ? { ...item, quantity: newQty } : item;
-          }
-          return item;
-        })
+      prev.map((item) => {
+        if (item.id === id) {
+          const newQty = item.quantity + delta;
+          return newQty > 0 ? { ...item, quantity: newQty } : item;
+        }
+        return item;
+      })
     );
   };
 
@@ -181,18 +209,17 @@ export default function HomePage() {
 
   return (
     <div className="pb-28 space-y-6 bg-zinc-950 text-zinc-100 min-h-screen p-4 sm:p-6">
-      {/* 1. Dark & Neon Orange Hero Banner */}
+      {/* 1. Hero Banner */}
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-zinc-900 via-orange-950/80 to-orange-600/90 border border-orange-500/30 p-6 text-white shadow-[0_0_30px_rgba(249,115,22,0.15)]">
         <div className="absolute top-0 right-0 w-64 h-64 bg-orange-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 flex justify-between items-center">
           <div>
             <span className="inline-block px-3 py-1 bg-orange-500/20 border border-orange-500/40 rounded-full text-[10px] font-bold tracking-wider text-orange-400 uppercase mb-2">
-              ⚡ HOT DEALS TODAY
+              ⚡ BACK TO SCHOOL DEALS
             </span>
             <h2 className="text-2xl font-black tracking-tight text-white drop-shadow">ตลาดนัดวิทยาลัย</h2>
-            <p className="text-xs text-zinc-400 mt-1">ซื้อ-ขาย แลกเปลี่ยนของใช้และอุปกรณ์การเรียน</p>
+            <p className="text-xs text-zinc-400 mt-1">ซื้อ-ขาย อุปกรณ์การเรียน หนังสือ และของใช้นักศึกษา</p>
           </div>
-          {/* Cart Icon inside Banner */}
           <div 
             onClick={() => setIsCartOpen(true)}
             className="relative bg-zinc-900/90 p-3.5 rounded-2xl border border-orange-500/40 flex items-center justify-center shadow-lg cursor-pointer hover:scale-105 transition"
@@ -207,13 +234,30 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* 2. Section Header */}
+      {/* 2. Category Filters */}
+      <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-none">
+        {categories.map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setSelectedCategory(cat)}
+            className={`px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
+              selectedCategory === cat
+                ? "bg-orange-500 text-black shadow-[0_0_15px_rgba(249,115,22,0.4)]"
+                : "bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-white"
+            }`}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      {/* 3. Section Header */}
       <div className="flex justify-between items-center px-1">
         <div>
           <h3 className="text-lg font-bold bg-gradient-to-r from-orange-400 to-amber-500 bg-clip-text text-transparent">
-            รายการสินค้าแนะนำ
+            รายการสินค้า ({selectedCategory})
           </h3>
-          <p className="text-xs text-zinc-400">อัปเดตล่าสุด {mockProducts.length} รายการ</p>
+          <p className="text-xs text-zinc-400">พบ {filteredProducts.length} รายการ</p>
         </div>
         <Link
           href="/product"
@@ -223,9 +267,9 @@ export default function HomePage() {
         </Link>
       </div>
 
-      {/* 3. Product Grid */}
+      {/* 4. Product Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {mockProducts.map((item) => (
+        {filteredProducts.map((item) => (
           <div
             key={item.id}
             onMouseEnter={() => setHoveredId(item.id)}
@@ -236,7 +280,6 @@ export default function HomePage() {
                 : "border-zinc-800 hover:border-zinc-700"
             }`}
           >
-            {/* Image Box */}
             <div 
               onClick={() => setSelectedProduct(item)}
               className="w-full h-44 rounded-xl relative overflow-hidden bg-zinc-950 border border-zinc-800"
@@ -247,11 +290,10 @@ export default function HomePage() {
                 className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
               />
               <span className={`absolute top-2 left-2 px-2.5 py-1 rounded-full border text-[10px] font-bold backdrop-blur-md ${item.badgeStyle}`}>
-                📦 {item.category}
+                ✏️ {item.category}
               </span>
             </div>
 
-            {/* Product Details */}
             <div className="mt-3 space-y-1.5">
               <h4 
                 onClick={() => setSelectedProduct(item)}
@@ -268,7 +310,6 @@ export default function HomePage() {
                   ฿{item.price}
                 </span>
                 
-                {/* Action Buttons */}
                 <div className="flex items-center gap-1.5">
                   <button 
                     onClick={() => addToCart(item)}
@@ -290,7 +331,7 @@ export default function HomePage() {
         ))}
       </div>
 
-      {/* 4. Bottom Navigation Dock */}
+      {/* Bottom Navigation */}
       <div className="fixed bottom-5 left-1/2 -translate-x-1/2 w-[90%] max-w-sm bg-zinc-900/90 backdrop-blur-xl border border-orange-500/30 shadow-[0_10px_30px_rgba(0,0,0,0.8)] rounded-full p-2.5 flex justify-around items-center z-40">
         <Link href="/home" className="flex flex-col items-center gap-0.5 text-xs font-bold text-orange-400 px-4 py-1 rounded-full bg-orange-500/10 border border-orange-500/20">
           <span className="text-lg">🏠</span>
@@ -309,9 +350,9 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* ----------------- MODAL: รายละเอียดสินค้า ----------------- */}
+      {/* Modal รายละเอียดสินค้า */}
       {selectedProduct && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
           <div className="relative w-full max-w-lg bg-zinc-900 border border-orange-500/40 rounded-3xl p-6 shadow-[0_0_50px_rgba(249,115,22,0.2)]">
             <button 
               onClick={() => setSelectedProduct(null)}
@@ -323,7 +364,7 @@ export default function HomePage() {
               <img src={selectedProduct.image} alt={selectedProduct.name} className="w-full h-full object-cover" />
             </div>
             <span className={`px-3 py-1 rounded-full border text-xs font-bold ${selectedProduct.badgeStyle}`}>
-              📦 {selectedProduct.category}
+              ✏️ {selectedProduct.category}
             </span>
             <h3 className="text-xl font-black text-white mt-3">{selectedProduct.name}</h3>
             <p className="text-xs text-orange-400 mt-1 font-semibold">ผู้ขาย: {selectedProduct.seller}</p>
@@ -349,7 +390,7 @@ export default function HomePage() {
         </div>
       )}
 
-      {/* ----------------- MODAL: ตะกร้าสินค้า ----------------- */}
+      {/* Modal ตะกร้าสินค้า */}
       {isCartOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
           <div className="relative w-full max-w-md bg-zinc-900 border border-orange-500/40 rounded-3xl p-6 shadow-[0_0_50px_rgba(249,115,22,0.2)] max-h-[85vh] flex flex-col">
@@ -365,7 +406,6 @@ export default function HomePage() {
               </button>
             </div>
 
-            {/* List */}
             <div className="flex-1 overflow-y-auto my-4 space-y-3 pr-1">
               {cart.length === 0 ? (
                 <div className="text-center py-10 text-zinc-500 text-xs">
@@ -394,7 +434,6 @@ export default function HomePage() {
               )}
             </div>
 
-            {/* Footer Summary */}
             {cart.length > 0 && (
               <div className="border-t border-zinc-800 pt-4 space-y-3">
                 <div className="flex justify-between items-center">
