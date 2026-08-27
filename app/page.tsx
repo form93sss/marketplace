@@ -8,55 +8,63 @@ export default function SplashScreen() {
   useEffect(() => {
     const timer = setTimeout(() => {
       router.push("/home");
-    }, 3000);
+    }, 3200);
     return () => clearTimeout(timer);
   }, [router]);
 
   return (
-    <div className="relative flex flex-col items-center justify-center min-h-[80vh] text-center overflow-hidden">
-      {/* 1. Dynamic Glowing Background Orbs */}
-      <div className="absolute -top-12 -left-12 w-64 h-64 bg-indigo-500/30 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute -bottom-12 -right-12 w-64 h-64 bg-pink-500/30 rounded-full blur-3xl animate-pulse delay-700" />
-      <div className="absolute w-48 h-48 bg-purple-500/20 rounded-full blur-2xl animate-ping opacity-25" />
+    <div className="relative flex flex-col items-center justify-center min-h-[85vh] text-center overflow-hidden bg-black text-white">
+      {/* 1. Dark & Orange Background Glowing Elements */}
+      <div className="absolute top-1/4 -left-20 w-80 h-80 bg-orange-600/25 rounded-full blur-[100px] animate-pulse" />
+      <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-amber-500/20 rounded-full blur-[100px] animate-pulse delay-1000" />
 
-      {/* 2. Glassmorphism Card with Floating Icon */}
+      {/* Floating Particle Dots */}
+      <div className="absolute w-2 h-2 bg-orange-400 rounded-full top-20 left-10 animate-bounce opacity-40 duration-1000" />
+      <div className="absolute w-3 h-3 bg-amber-500 rounded-full bottom-24 left-1/4 animate-ping opacity-30" />
+      <div className="absolute w-2 h-2 bg-orange-500 rounded-full top-1/3 right-12 animate-bounce opacity-50 duration-700" />
+
+      {/* 2. 3D Floating Logo with Orange Pulse Rings */}
       <div 
         onClick={() => router.push("/home")}
-        className="relative group cursor-pointer transform hover:scale-105 transition-all duration-500"
+        className="relative group cursor-pointer z-10 my-4"
       >
-        {/* Neon Light Aura */}
-        <div className="absolute -inset-1 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 rounded-[2.5rem] blur-xl opacity-75 group-hover:opacity-100 animate-tilt transition duration-1000" />
-        
-        {/* Main Icon Box */}
-        <div className="relative w-32 h-32 bg-slate-900/80 backdrop-blur-2xl border border-white/20 rounded-[2.5rem] flex flex-col items-center justify-center shadow-2xl overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/20 via-transparent to-pink-500/20" />
-          <span className="text-5xl animate-bounce tracking-tight drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)]">
-            🛍️
+        {/* Pulsing Neon Rings */}
+        <div className="absolute -inset-4 rounded-full border border-orange-500/30 animate-ping opacity-75" />
+        <div className="absolute -inset-8 rounded-full border border-amber-500/20 animate-pulse" />
+
+        {/* Glow Aura */}
+        <div className="absolute -inset-2 bg-gradient-to-tr from-orange-600 via-amber-500 to-orange-400 rounded-3xl blur-xl opacity-80 group-hover:opacity-100 transition duration-500" />
+
+        {/* Icon Container */}
+        <div className="relative w-32 h-32 bg-zinc-950/90 border border-orange-500/40 rounded-3xl flex flex-col items-center justify-center shadow-[0_0_50px_rgba(249,115,22,0.4)] backdrop-blur-xl">
+          <span className="text-5xl animate-bounce drop-shadow-[0_10px_15px_rgba(249,115,22,0.6)]">
+            ⚡
           </span>
-          <span className="mt-1 text-[10px] font-black tracking-widest text-indigo-300 uppercase">
+          <span className="mt-1 text-[10px] font-black tracking-widest text-orange-400 uppercase">
             Marketplace
           </span>
         </div>
       </div>
 
-      {/* 3. Gradient Typography */}
-      <div className="mt-8 space-y-2 relative z-10">
-        <h1 className="text-3xl font-black tracking-tight bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent drop-shadow-sm">
+      {/* 3. Typography (Black & Orange Neon Theme) */}
+      <div className="mt-6 space-y-2 z-10">
+        <h1 className="text-3xl font-black tracking-wider uppercase bg-gradient-to-r from-orange-400 via-amber-300 to-orange-500 bg-clip-text text-transparent drop-shadow-[0_2px_10px_rgba(249,115,22,0.5)]">
           Campus Market
         </h1>
-        <p className="text-xs font-semibold tracking-wide text-slate-400 dark:text-slate-400 uppercase">
-          Next-Gen College Shopping Experience
+        <p className="text-xs font-semibold tracking-widest text-zinc-400 uppercase">
+          Powered by Next.js & Vercel
         </p>
       </div>
 
-      {/* 4. Sleek Loading Progress Bar */}
-      <div className="mt-10 w-48 space-y-2">
-        <div className="w-full h-1.5 bg-slate-200/50 dark:bg-slate-800/80 rounded-full overflow-hidden p-0.5 border border-white/10 shadow-inner">
-          <div className="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-full animate-[shimmer_1.5s_infinite] w-full" />
+      {/* 4. Orange Glowing Progress Bar */}
+      <div className="mt-10 w-52 space-y-2 z-10">
+        <div className="w-full h-1.5 bg-zinc-900 rounded-full overflow-hidden border border-orange-500/20 p-0.5 shadow-[0_0_15px_rgba(249,115,22,0.2)]">
+          <div className="h-full bg-gradient-to-r from-orange-600 via-amber-400 to-orange-500 rounded-full animate-[pulse_1.2s_infinite] w-full shadow-[0_0_10px_#f97316]" />
         </div>
-        <p className="text-[10px] font-bold text-slate-400 tracking-wider animate-pulse">
-          LOADING SYSTEM...
-        </p>
+        <div className="flex justify-between items-center text-[10px] font-mono text-orange-400/80 px-1">
+          <span className="animate-pulse">SYSTEM INITIALIZING...</span>
+          <span>100%</span>
+        </div>
       </div>
     </div>
   );
