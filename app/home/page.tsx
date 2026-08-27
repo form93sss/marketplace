@@ -15,7 +15,7 @@ interface Product {
   badgeStyle: string;
 }
 
-// ข้อมูลสินค้าอุปกรณ์การเรียน 8 รายการ
+// ข้อมูลสินค้าอุปกรณ์การเรียน 8 รายการพร้อมรูปภาพตรงปก
 const mockProducts: Product[] = [
   { 
     id: 1, 
@@ -24,7 +24,7 @@ const mockProducts: Product[] = [
     seller: "นางสาวสมหญิง (ปวช.3)", 
     category: "อุปกรณ์การเรียน", 
     image: "https://images.unsplash.com/photo-1594980596870-8aa52a78d8cd?w=500&q=80",
-    modelSrc: "https://modelviewer.dev/shared-assets/models/glTF-Sample-Models/Examples/SheenChair/glTF-Binary/SheenChair.glb",
+    modelSrc: "", // เว้นว่างไว้เพื่อให้แสดงรูปภาพตรงปก
     description: "รุ่น fx-991EX คำนวณเมทริกซ์และสถิติได้ สภาพ 95% พร้อมฝาครอบ",
     badgeStyle: "bg-amber-500/20 text-amber-400 border-amber-500/40" 
   },
@@ -35,7 +35,7 @@ const mockProducts: Product[] = [
     seller: "นายธีระ (ปวส.1)", 
     category: "อุปกรณ์การเรียน", 
     image: "https://images.unsplash.com/photo-1585336261026-8f5786372969?w=500&q=80",
-    modelSrc: "https://modelviewer.dev/shared-assets/models/Astronaut.glb",
+    modelSrc: "",
     description: "ชุดกล่องเหล็กอุปกรณ์ครบ สภาพใหม่ เข็มตรง หัวจับปากกาหมึกเขียนแบบได้",
     badgeStyle: "bg-amber-500/20 text-amber-400 border-amber-500/40" 
   },
@@ -46,7 +46,7 @@ const mockProducts: Product[] = [
     seller: "กิตติพงษ์ (ปวช.2)", 
     category: "อุปกรณ์การเรียน", 
     image: "https://images.unsplash.com/photo-1534073828943-f801091bb18c?w=500&q=80",
-    modelSrc: "https://modelviewer.dev/shared-assets/models/shishkebab.glb",
+    modelSrc: "",
     description: "ชาร์จ USB ได้ ปรับความสว่างได้ 3 ระดับ ถนอมสายตา พับเก็บสะดวก",
     badgeStyle: "bg-amber-500/20 text-amber-400 border-amber-500/40" 
   },
@@ -57,7 +57,7 @@ const mockProducts: Product[] = [
     seller: "ศิริพร (ปวช.1)", 
     category: "อุปกรณ์การเรียน", 
     image: "https://images.unsplash.com/photo-1588665555327-a67c73b3cc23?w=500&q=80",
-    modelSrc: "https://modelviewer.dev/shared-assets/models/glTF-Sample-Models/Examples/Duck/glTF-Binary/Duck.glb",
+    modelSrc: "",
     description: "สเกลชัดเจน ตัวเลขไม่ลอก สแตนเลสหนา ไม่หักง่าย",
     badgeStyle: "bg-amber-500/20 text-amber-400 border-amber-500/40" 
   },
@@ -68,7 +68,7 @@ const mockProducts: Product[] = [
     seller: "นลินี (ปวส.2)", 
     category: "อุปกรณ์การเรียน", 
     image: "https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?w=500&q=80",
-    modelSrc: "https://modelviewer.dev/shared-assets/models/Astronaut.glb",
+    modelSrc: "",
     description: "แห้งไว ไม่ซึมทะลุกระดาษ สีสวยอ่านสบายตา หมึกเต็มทุกแท่ง",
     badgeStyle: "bg-amber-500/20 text-amber-400 border-amber-500/40" 
   },
@@ -79,7 +79,7 @@ const mockProducts: Product[] = [
     seller: "อนุพงษ์ (ปวส.1)", 
     category: "อุปกรณ์การเรียน", 
     image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=500&q=80",
-    modelSrc: "https://modelviewer.dev/shared-assets/models/glTF-Sample-Models/Examples/SheenChair/glTF-Binary/SheenChair.glb",
+    modelSrc: "",
     description: "กระดาษถนอมสายตา 80 แกรม หนา 100 แผ่น พร้อมสายรัดกันเปิด",
     badgeStyle: "bg-amber-500/20 text-amber-400 border-amber-500/40" 
   },
@@ -90,7 +90,7 @@ const mockProducts: Product[] = [
     seller: "เมธาพร (ปวช.3)", 
     category: "อุปกรณ์การเรียน", 
     image: "https://images.unsplash.com/photo-1568805610918-f36c347f3b61?w=500&q=80",
-    modelSrc: "https://modelviewer.dev/shared-assets/models/shishkebab.glb",
+    modelSrc: "",
     description: "ผ้าแคนวาสทนทาน ใส่ปากกาได้มากกว่า 40 แท่ง มีช่องแยกหลายชั้น",
     badgeStyle: "bg-amber-500/20 text-amber-400 border-amber-500/40" 
   },
@@ -101,7 +101,7 @@ const mockProducts: Product[] = [
     seller: "วรวุฒิ (ปวส.2)", 
     category: "อุปกรณ์การเรียน", 
     image: "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=500&q=80",
-    modelSrc: "https://modelviewer.dev/shared-assets/models/glTF-Sample-Models/Examples/Duck/glTF-Binary/Duck.glb",
+    modelSrc: "",
     description: "ฐานเหล็กสเกลเป๊ะ ใบมีดคม ตัดได้พร้อมกันสูงสุด 10 แผ่น มีตัวล็อคปลอดภัย",
     badgeStyle: "bg-amber-500/20 text-amber-400 border-amber-500/40" 
   },
@@ -161,7 +161,7 @@ export default function HomePage() {
             รายการสินค้าแบบ 3D
           </h2>
           <p className="text-xs text-zinc-400">
-            พบ {filteredProducts.length} รายการ (แตะค้างแล้วหมุนเพื่อดู 360°)
+            พบ {filteredProducts.length} รายการ
           </p>
         </div>
         <button className="px-4 py-2 bg-orange-500 hover:bg-orange-400 text-black font-bold text-xs md:text-sm rounded-xl transition-all shadow-md">
@@ -176,26 +176,39 @@ export default function HomePage() {
             key={product.id}
             className="bg-zinc-900/80 border border-zinc-800/80 hover:border-orange-500/50 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-[0_0_20px_rgba(249,115,22,0.15)] flex flex-col group"
           >
-            {/* แสดง 3D Model Viewer หรือ รูปภาพ */}
+            {/* ส่วนแสดงภาพ / โมเดลสินค้า */}
             <div className="relative w-full h-56 bg-zinc-950 flex items-center justify-center overflow-hidden">
               {/* Badge หมวดหมู่ */}
               <span className={`absolute top-3 left-3 z-10 text-[10px] font-bold px-2.5 py-1 rounded-full border backdrop-blur-md ${product.badgeStyle}`}>
                 {product.category}
               </span>
 
-              {/* 3D Model Component */}
-              {/* @ts-ignore */}
-              <model-viewer
-                src={product.modelSrc}
-                alt={product.name}
-                auto-rotate
-                camera-controls
-                touch-action="pan-y"
-                shadow-intensity="1"
-                style={{ width: "100%", height: "100%", backgroundColor: "transparent" }}
-              >
-                {/* @ts-ignore */}
-              </model-viewer>
+              {/* เช็คว่ามีโมเดล 3D หรือไม่ ถ้าไม่มีให้โชว์รูปภาพสินค้าตรงปกแทน */}
+              {product.modelSrc ? (
+                // @ts-ignore
+                <model-viewer
+                  src={product.modelSrc}
+                  alt={product.name}
+                  auto-rotate
+                  camera-controls
+                  touch-action="pan-y"
+                  shadow-intensity="1"
+                  style={{ width: "100%", height: "100%", backgroundColor: "transparent" }}
+                >
+                  {/* @ts-ignore */}
+                </model-viewer>
+              ) : (
+                <div className="relative w-full h-full">
+                  <Image
+                    src={product.image}
+                    alt={product.name}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent opacity-60" />
+                </div>
+              )}
             </div>
 
             {/* ข้อมูลสินค้า */}
@@ -227,7 +240,7 @@ export default function HomePage() {
         ))}
       </div>
 
-      {/* Modal ป๊อปอัพแสดงรายละเอียดสินค้าเมื่อกดปุ่ม "รายละเอียด" */}
+      {/* Modal ป๊อปอัพแสดงรายละเอียดสินค้า */}
       {selectedProduct && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-zinc-900 border border-orange-500/30 rounded-2xl max-w-lg w-full p-6 relative shadow-[0_0_30px_rgba(249,115,22,0.2)]">
@@ -237,17 +250,26 @@ export default function HomePage() {
             >
               ✕
             </button>
-            <div className="w-full h-64 bg-zinc-950 rounded-xl mb-4">
-              {/* @ts-ignore */}
-              <model-viewer
-                src={selectedProduct.modelSrc}
-                alt={selectedProduct.name}
-                auto-rotate
-                camera-controls
-                style={{ width: "100%", height: "100%" }}
-              >
-                {/* @ts-ignore */}
-              </model-viewer>
+            <div className="w-full h-64 bg-zinc-950 rounded-xl mb-4 relative overflow-hidden flex items-center justify-center">
+              {selectedProduct.modelSrc ? (
+                // @ts-ignore
+                <model-viewer
+                  src={selectedProduct.modelSrc}
+                  alt={selectedProduct.name}
+                  auto-rotate
+                  camera-controls
+                  style={{ width: "100%", height: "100%" }}
+                >
+                  {/* @ts-ignore */}
+                </model-viewer>
+              ) : (
+                <Image
+                  src={selectedProduct.image}
+                  alt={selectedProduct.name}
+                  fill
+                  className="object-cover rounded-xl"
+                />
+              )}
             </div>
             <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${selectedProduct.badgeStyle}`}>
               {selectedProduct.category}
