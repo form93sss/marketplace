@@ -1,8 +1,81 @@
 "use client";
-import React, { useState } from "react";
-import Image from "next/image";
+import React, { useState, useEffect } from "react";
 
-// อินเทอร์เฟซโครงสร้างข้อมูลสินค้า
+// ----------------------------------------------------------------------
+// 1. Component หน้าโหลด (Loading Screen with Typing Effect)
+// ----------------------------------------------------------------------
+function LoadingScreen({ onFinished }: { onFinished: () => void }) {
+  const [progress, setProgress] = useState(0);
+  const textToType = "CAMPUS MARKET";
+  const [displayedText, setDisplayedText] = useState("");
+
+  useEffect(() => {
+    // ตัวนับ % การโหลด (0 - 100%)
+    const interval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          setTimeout(onFinished, 500); // เมื่อโหลดครบ 100% ให้เปิดเข้าหน้าเว็บ
+          return 100;
+        }
+        return prev + 1;
+      });
+    }, 20);
+
+    return () => clearInterval(interval);
+  }, [onFinished]);
+
+  useEffect(() => {
+    // เอฟเฟกต์ตัวอักษรค่อยๆ ปรากฏทีละตัวตาม Progress %
+    const charIndex = Math.floor((progress / 100) * textToType.length);
+    setDisplayedText(textToType.substring(0, charIndex));
+  }, [progress]);
+
+  return (
+    <div className="fixed inset-0 z-50 bg-black flex flex-col items-center justify-center select-none overflow-hidden">
+      {/* แสงเรืองแสงสีส้มด้านหลัง */}
+      <div className="absolute w-72 h-72 bg-orange-600/20 rounded-full blur-[100px] pointer-events-none" />
+
+      {/* กล่องโลโก้ชาร์ต Lightning */}
+      <div className="relative mb-6">
+        <div className="w-20 h-20 bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-[0_0_40px_rgba(249,115,22,0.4)] border border-orange-400/40 animate-pulse">
+          <span className="text-4xl font-black text-black">⚡</span>
+        </div>
+      </div>
+
+      {/* ข้อความ Typing Effect (ตัวอักษรค่อยๆ โหลดขึ้นมา) */}
+      <div className="relative h-12 flex items-center justify-center">
+        <h1 className="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-500 to-amber-300 tracking-wider drop-shadow-[0_0_15px_rgba(249,115,22,0.6)]">
+          {displayedText}
+          <span className="inline-block w-1.5 h-8 ml-1 bg-orange-500 animate-ping" />
+        </h1>
+      </div>
+
+      <p className="text-xs text-orange-400/80 tracking-widest font-mono mt-2 mb-6 uppercase">
+        POWERED BY NEXT.JS & VERCEL
+      </p>
+
+      {/* หลอด Progress Bar ด้านล่าง */}
+      <div className="w-64 md:w-80 space-y-2">
+        <div className="w-full bg-zinc-900 h-2 rounded-full overflow-hidden border border-orange-500/20 p-[1px]">
+          <div
+            className="bg-gradient-to-r from-amber-500 to-orange-500 h-full rounded-full transition-all duration-75 ease-out shadow-[0_0_10px_#f97316]"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+
+        <div className="flex justify-between items-center text-[10px] font-mono text-orange-400/60">
+          <span>SYSTEM INITIALIZING...</span>
+          <span className="font-bold text-orange-400">{progress}%</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ----------------------------------------------------------------------
+// 2. ข้อมูลสินค้าและ Type Definitions
+// ----------------------------------------------------------------------
 interface Product {
   id: number;
   name: string;
@@ -14,12 +87,10 @@ interface Product {
   badgeStyle: string;
 }
 
-// รายการสินค้าตะกร้า
 interface CartItem extends Product {
   quantity: number;
 }
 
-// ข้อมูลสินค้าอุปกรณ์การเรียน 8 รายการ (ใช้รูปคุณภาพสูงตรงกับอุปกรณ์การเรียนชัวร์ 100%)
 const mockProducts: Product[] = [
   { 
     id: 1, 
@@ -105,15 +176,19 @@ const mockProducts: Product[] = [
 
 const categories = ["ทั้งหมด", "อุปกรณ์การเรียน", "หนังสือ", "ไอที", "เสื้อผ้า", "ศิลปะ", "แฟชั่น"];
 
+// ----------------------------------------------------------------------
+// 3. Component หน้าหลัก (Home Page)
+// ----------------------------------------------------------------------
 export default function HomePage() {
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("ทั้งหมด");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   
-  // State สำหรับจัดการตระกร้าสินค้า
+  // State สำหรับตะกร้าสินค้า
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
-  // ฟังก์ชันเพิ่มสินค้าใส่ตะกร้า
+  // เพิ่มสินค้าเข้าตะกร้า
   const addToCart = (product: Product) => {
     setCart((prevCart) => {
       const existingItem = prevCart.find((item) => item.id === product.id);
@@ -126,7 +201,7 @@ export default function HomePage() {
     });
   };
 
-  // ฟังก์ชันลด/เพิ่ม/ลบ ในตะกร้า
+  // ปรับจำนวนสินค้าในตะกร้า
   const updateQuantity = (id: number, delta: number) => {
     setCart((prevCart) =>
       prevCart
@@ -141,15 +216,18 @@ export default function HomePage() {
     );
   };
 
-  // คำนวณจำนวนชิ้นทั้งหมดและราคารวม
   const totalCartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
   const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-  // กรองสินค้าตามหมวดหมู่
   const filteredProducts = mockProducts.filter((product) => {
     if (selectedCategory === "ทั้งหมด") return true;
     return product.category === selectedCategory;
   });
+
+  // ถ้าอยู่ในสถานะกำลังโหลด ให้แสดง LoadingScreen
+  if (isLoading) {
+    return <LoadingScreen onFinished={() => setIsLoading(false)} />;
+  }
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 p-4 md:p-8 pb-32 relative">
@@ -169,7 +247,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* หมวดหมู่สินค้า (Category Buttons) */}
+      {/* หมวดหมู่สินค้า */}
       <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-6 scrollbar-none">
         {categories.map((cat) => (
           <button
@@ -208,7 +286,6 @@ export default function HomePage() {
             key={product.id}
             className="bg-zinc-900/80 border border-zinc-800/80 hover:border-orange-500/50 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-[0_0_20px_rgba(249,115,22,0.15)] flex flex-col group"
           >
-            {/* แสดงรูปภาพสินค้าตรงปก */}
             <div className="relative w-full h-56 bg-zinc-950 overflow-hidden">
               <span className={`absolute top-3 left-3 z-10 text-[10px] font-bold px-2.5 py-1 rounded-full border backdrop-blur-md ${product.badgeStyle}`}>
                 {product.category}
@@ -223,7 +300,6 @@ export default function HomePage() {
               <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent" />
             </div>
 
-            {/* ข้อมูลสินค้า */}
             <div className="p-4 flex flex-col flex-grow justify-between">
               <div>
                 <h3 className="font-bold text-base text-zinc-100 line-clamp-1 group-hover:text-orange-400 transition-colors">
@@ -259,7 +335,7 @@ export default function HomePage() {
         ))}
       </div>
 
-      {/* ปุ่มกดดูตะกร้าลอยมุมล่างขวา (Floating Cart Button) */}
+      {/* ปุ่มกดดูตะกร้าสินค้าลอยมุมขวา */}
       <button
         onClick={() => setIsCartOpen(true)}
         className="fixed bottom-6 right-6 z-40 bg-orange-500 hover:bg-orange-400 text-black font-extrabold p-4 rounded-full shadow-[0_0_25px_rgba(249,115,22,0.5)] transition-transform active:scale-95 flex items-center gap-3 border border-amber-300"
@@ -275,7 +351,7 @@ export default function HomePage() {
         <span className="text-sm hidden sm:inline">ดูตะกร้าสินค้า</span>
       </button>
 
-      {/* Slide-over/Modal ตะกร้าสินค้า */}
+      {/* Drawer ตะกร้าสินค้า */}
       {isCartOpen && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex justify-end">
           <div className="bg-zinc-900 border-l border-zinc-800 w-full max-w-md h-full p-6 flex flex-col justify-between relative shadow-2xl animate-in slide-in-from-right duration-300">
@@ -292,7 +368,6 @@ export default function HomePage() {
                 </button>
               </div>
 
-              {/* รายการในตะกร้า */}
               <div className="mt-4 overflow-y-auto max-h-[60vh] space-y-4 pr-1">
                 {cart.length === 0 ? (
                   <div className="text-center py-12 text-zinc-500">
@@ -338,7 +413,6 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* ส่วนสรุปราคาด้านล่างตะกร้า */}
             <div className="pt-4 border-t border-zinc-800">
               <div className="flex justify-between items-center mb-4">
                 <span className="text-sm text-zinc-400">ราคารวมทั้งหมด:</span>
