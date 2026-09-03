@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 
 // ----------------------------------------------------------------------
-// 1. Loading Screen
+// 1. Loading Screen (KhongMan TongMi Theme)
 // ----------------------------------------------------------------------
 function LoadingScreen({ onFinished }: { onFinished: () => void }) {
   const [progress, setProgress] = useState(0);
@@ -30,30 +30,42 @@ function LoadingScreen({ onFinished }: { onFinished: () => void }) {
   }, [progress]);
 
   return (
-    <div className="fixed inset-0 z-50 bg-[#080808] flex flex-col items-center justify-center select-none overflow-hidden">
-      <div className="absolute w-96 h-96 bg-red-600/20 rounded-full blur-[140px] pointer-events-none" />
+    <div className="fixed inset-0 z-50 bg-[#050505] flex flex-col items-center justify-center select-none overflow-hidden">
+      {/* Red Glow Background Effect */}
+      <div className="absolute w-96 h-96 bg-red-600/15 rounded-full blur-[150px] pointer-events-none" />
 
-      <div className="relative h-20 flex items-center justify-center mb-2">
-        <h1 className="text-3xl md:text-5xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-white via-zinc-200 to-red-600 drop-shadow-[0_0_25px_rgba(220,38,38,0.8)]">
+      {/* KM Box Logo */}
+      <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br from-red-600 via-red-800 to-black p-[2px] shadow-[0_0_30px_rgba(220,38,38,0.6)] mb-6 animate-pulse">
+        <div className="w-full h-full bg-black rounded-[14px] flex items-center justify-center border border-red-500/30">
+          <span className="font-black text-xl md:text-2xl text-transparent bg-clip-text bg-gradient-to-r from-white via-zinc-200 to-red-500 tracking-tighter">
+            KM
+          </span>
+        </div>
+      </div>
+
+      {/* Typo Heading */}
+      <div className="relative h-12 flex items-center justify-center mb-1">
+        <h1 className="text-2xl md:text-4xl font-black italic tracking-wider text-white drop-shadow-[0_0_15px_rgba(220,38,38,0.8)]">
           {displayedText}
-          <span className="inline-block w-1.5 h-10 ml-1.5 bg-red-600 animate-ping align-middle" />
+          <span className="inline-block w-1.5 h-7 md:h-9 ml-1.5 bg-red-600 animate-ping align-middle" />
         </h1>
       </div>
 
-      <p className="text-xs text-red-500 tracking-widest font-mono mb-8 uppercase font-bold">
-        อุปกรณ์แต่งรถจักรยานยนต์ | แต่งสวย แรง ไม่ซ้ำใคร
+      <p className="text-[10px] md:text-xs text-red-500 tracking-[0.25em] font-mono mb-8 uppercase font-bold">
+        PROJECT CUSTOM PARTS
       </p>
 
+      {/* Progress Bar & Percentage */}
       <div className="w-64 md:w-80 space-y-2">
-        <div className="w-full bg-zinc-900 h-2 rounded-full overflow-hidden border border-red-600/30 p-[1px]">
+        <div className="w-full bg-zinc-950 h-2 rounded-full overflow-hidden border border-red-900/40 p-[1px]">
           <div
-            className="bg-gradient-to-r from-white via-red-500 to-red-700 h-full rounded-full transition-all duration-75 ease-out shadow-[0_0_12px_#dc2626]"
+            className="bg-gradient-to-r from-red-800 via-red-600 to-red-500 h-full rounded-full transition-all duration-75 ease-out shadow-[0_0_12px_#dc2626]"
             style={{ width: `${progress}%` }}
           />
         </div>
 
-        <div className="flex justify-between items-center text-[10px] font-mono text-red-400">
-          <span>SYSTEM LOADING...</span>
+        <div className="flex justify-between items-center text-[10px] font-mono text-zinc-400">
+          <span>SYSTEM INITIALIZING...</span>
           <span className="font-bold text-red-500">{progress}%</span>
         </div>
       </div>
@@ -81,7 +93,7 @@ interface CartItem extends Product {
 
 const featuredProduct: Product = {
   id: 100,
-  name: "ชุดท่อไอเสีย Carbon / Titanium Full System",
+  name: "ชุดท่อไอเสีย CARBON / TITANIUM FULL SYSTEM",
   brand: "AKRAPOVIČ",
   price: 28500,
   seller: "KhongMan Official",
@@ -94,7 +106,7 @@ const mockProducts: Product[] = [
   featuredProduct,
   {
     id: 1,
-    name: "โช้คหลังสับปะรดปรับระดับSubtank",
+    name: "โช้คหลังสับปะรดปรับระดับ Subtank",
     brand: "YSS PERFORMANCE",
     price: 14500,
     seller: "ช่างแม็ก มอเตอร์",
@@ -147,16 +159,16 @@ const mockProducts: Product[] = [
 const categories = ["ทั้งหมด", "ระบบไอเสีย", "ระบบกันสะเทือน", "ระบบเบรก", "ล้อ & ยาง", "ระบบขับเคลื่อน"];
 
 // ----------------------------------------------------------------------
-// 3. Main Page
+// 3. Main Page Component
 // ----------------------------------------------------------------------
 export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
-  const [isDarkMode, setIsDarkMode] = useState(true); // Toggle Light / Dark Mode
+  const [isDarkMode, setIsDarkMode] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("ทั้งหมด");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
-  // Cart Management
+  // Cart State
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
@@ -207,13 +219,13 @@ export default function HomePage() {
         : "bg-slate-50 text-slate-900 selection:bg-red-500 selection:text-white"
     }`}>
       
-      {/* Top Header / Navigation Bar */}
-      <header className={`w-full sticky top-0 z-40 px-4 md:px-8 py-3 flex items-center justify-between transition-colors border-b shadow-md ${
+      {/* Header / Navbar หลัก */}
+      <header className={`w-full sticky top-0 z-40 px-4 md:px-8 py-3.5 flex items-center justify-between transition-colors border-b shadow-md ${
         isDarkMode 
           ? "bg-[#0a0a0a]/95 backdrop-blur-md border-red-950/80 shadow-black/80" 
           : "bg-white/95 backdrop-blur-md border-slate-200 shadow-slate-200"
       }`}>
-        {/* LOGO & BRANDING */}
+        {/* LOGO KHONGMAN TONGMI */}
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 md:w-11 md:h-11 rounded-xl bg-gradient-to-br from-red-600 via-red-800 to-black p-[2px] shadow-[0_0_15px_rgba(220,38,38,0.5)]">
             <div className="w-full h-full bg-black rounded-[10px] flex items-center justify-center border border-red-500/30">
@@ -238,12 +250,11 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* RIGHT CONTROLS */}
+        {/* RIGHT CONTROLS - Cart & Theme Switch */}
         <div className="flex items-center gap-3">
-          {/* Cart Button */}
           <button 
             onClick={() => setIsCartOpen(true)} 
-            className={`flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-xl border transition-all ${
+            className={`flex items-center gap-2 text-xs font-extrabold px-3.5 py-2 rounded-xl border transition-all ${
               isDarkMode 
                 ? "bg-zinc-900 text-zinc-200 border-zinc-800 hover:border-red-600/50" 
                 : "bg-slate-100 text-slate-800 border-slate-200 hover:border-red-500"
@@ -257,20 +268,19 @@ export default function HomePage() {
             )}
           </button>
 
-          {/* Theme Switcher Toggle */}
           <button
             onClick={() => setIsDarkMode(!isDarkMode)}
-            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full border transition-all text-[11px] font-extrabold uppercase tracking-wide cursor-pointer ${
+            className={`flex items-center gap-2 px-3.5 py-2 rounded-xl border text-[10px] font-extrabold uppercase tracking-wide transition-all cursor-pointer ${
               isDarkMode
-                ? "bg-zinc-950 border-red-600/40 text-zinc-200 shadow-[0_0_10px_rgba(220,38,38,0.2)] hover:border-red-500"
-                : "bg-white border-slate-300 text-slate-700 hover:border-red-500 shadow-sm"
+                ? "bg-zinc-900/90 border-red-600/40 text-red-400 shadow-[0_0_10px_rgba(220,38,38,0.2)] hover:border-red-500"
+                : "bg-white border-red-400 text-red-600 hover:bg-red-50 shadow-sm"
             }`}
           >
-            <span className="relative flex h-2.5 w-2.5">
-              <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${isDarkMode ? "bg-red-400" : "bg-amber-400"}`}></span>
-              <span className={`relative inline-flex rounded-full h-2.5 w-2.5 ${isDarkMode ? "bg-red-600 shadow-[0_0_8px_#dc2626]" : "bg-amber-500"}`}></span>
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500 shadow-[0_0_6px_#dc2626]"></span>
             </span>
-            <span>{isDarkMode ? "🌙 Dark Theme" : "☀️ Light Theme"}</span>
+            <span>{isDarkMode ? "🌙 DARK THEME" : "☀️ LIGHT THEME"}</span>
           </button>
         </div>
       </header>
@@ -561,7 +571,7 @@ export default function HomePage() {
             <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-red-600/10 text-red-600 border border-red-600/30">
               {selectedProduct.category}
             </span>
-            <h2 className={`text-xl font-bold mt-2 ${isDarkMode ? "text-zinc-100" : "text-slate-900"}`}>
+            <h2 className={`text-xl font-bold mt-2 ${isDarkMode ? "text-[#f1f1f1]" : "text-slate-900"}`}>
               {selectedProduct.name}
             </h2>
             <p className="text-xs text-red-600 font-semibold">BRAND: {selectedProduct.brand}</p>
