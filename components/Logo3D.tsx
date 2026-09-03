@@ -45,4 +45,3 @@ export default function Logo3D() {
       </div>
     </div>
   );
-}
