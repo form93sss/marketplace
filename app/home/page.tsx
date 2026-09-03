@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 
 // ----------------------------------------------------------------------
-// 1. Loading Screen (KhongMan TongMi Theme)
+// 1. Loading Screen
 // ----------------------------------------------------------------------
 function LoadingScreen({ onFinished }: { onFinished: () => void }) {
   const [progress, setProgress] = useState(0);
@@ -62,7 +62,7 @@ function LoadingScreen({ onFinished }: { onFinished: () => void }) {
 }
 
 // ----------------------------------------------------------------------
-// 2. Types & Data Definition
+// 2. Types & Data
 // ----------------------------------------------------------------------
 interface Product {
   id: number;
@@ -147,10 +147,11 @@ const mockProducts: Product[] = [
 const categories = ["ทั้งหมด", "ระบบไอเสีย", "ระบบกันสะเทือน", "ระบบเบรก", "ล้อ & ยาง", "ระบบขับเคลื่อน"];
 
 // ----------------------------------------------------------------------
-// 3. Main Page Component
+// 3. Main Page
 // ----------------------------------------------------------------------
 export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(true); // Toggle Light / Dark Mode
   const [selectedCategory, setSelectedCategory] = useState("ทั้งหมด");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -188,7 +189,6 @@ export default function HomePage() {
   const totalCartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
   const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-  // Filter Logic
   const filteredProducts = mockProducts.filter((p) => {
     const matchesCategory = selectedCategory === "ทั้งหมด" || p.category === selectedCategory;
     const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -201,12 +201,21 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#070707] text-zinc-100 font-sans selection:bg-red-600 selection:text-white pb-24">
-      {/* Header / Navbar */}
-      <header className="w-full bg-[#0a0a0a]/95 backdrop-blur-md border-b border-red-950/80 sticky top-0 z-40 px-4 md:px-8 py-3 flex items-center justify-between shadow-[0_4px_20px_rgba(0,0,0,0.8)]">
+    <div className={`min-h-screen transition-colors duration-300 font-sans pb-24 ${
+      isDarkMode 
+        ? "bg-[#070707] text-zinc-100 selection:bg-red-600 selection:text-white" 
+        : "bg-slate-50 text-slate-900 selection:bg-red-500 selection:text-white"
+    }`}>
+      
+      {/* Top Header / Navigation Bar */}
+      <header className={`w-full sticky top-0 z-40 px-4 md:px-8 py-3 flex items-center justify-between transition-colors border-b shadow-md ${
+        isDarkMode 
+          ? "bg-[#0a0a0a]/95 backdrop-blur-md border-red-950/80 shadow-black/80" 
+          : "bg-white/95 backdrop-blur-md border-slate-200 shadow-slate-200"
+      }`}>
         {/* LOGO & BRANDING */}
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 md:w-11 md:h-11 rounded-xl bg-gradient-to-br from-red-600 via-red-800 to-black p-[2px] shadow-[0_0_15px_rgba(220,38,38,0.6)]">
+          <div className="w-10 h-10 md:w-11 md:h-11 rounded-xl bg-gradient-to-br from-red-600 via-red-800 to-black p-[2px] shadow-[0_0_15px_rgba(220,38,38,0.5)]">
             <div className="w-full h-full bg-black rounded-[10px] flex items-center justify-center border border-red-500/30">
               <span className="font-black text-xs md:text-sm text-transparent bg-clip-text bg-gradient-to-r from-white via-zinc-200 to-red-500 tracking-tighter">
                 KM
@@ -215,13 +224,15 @@ export default function HomePage() {
           </div>
 
           <div className="flex flex-col justify-center">
-            <h1 className="text-lg md:text-xl font-black tracking-wider text-white uppercase flex items-center gap-1.5 leading-none">
+            <h1 className={`text-lg md:text-xl font-black tracking-wider uppercase flex items-center gap-1.5 leading-none ${
+              isDarkMode ? "text-white" : "text-slate-900"
+            }`}>
               KhongMan{" "}
-              <span className="text-red-600 drop-shadow-[0_0_12px_rgba(220,38,38,0.9)]">
+              <span className="text-red-600 drop-shadow-[0_0_10px_rgba(220,38,38,0.8)]">
                 TongMi
               </span>
             </h1>
-            <span className="text-[9px] md:text-[10px] font-bold text-red-500/90 tracking-widest uppercase mt-1">
+            <span className="text-[9px] md:text-[10px] font-bold text-red-500 tracking-widest uppercase mt-1">
               PROJECT CUSTOM PARTS
             </span>
           </div>
@@ -229,9 +240,14 @@ export default function HomePage() {
 
         {/* RIGHT CONTROLS */}
         <div className="flex items-center gap-3">
+          {/* Cart Button */}
           <button 
             onClick={() => setIsCartOpen(true)} 
-            className="flex items-center gap-1.5 text-zinc-300 hover:text-white transition-colors bg-zinc-900/90 px-3 py-1.5 rounded-xl border border-zinc-800 hover:border-red-600/50"
+            className={`flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-xl border transition-all ${
+              isDarkMode 
+                ? "bg-zinc-900 text-zinc-200 border-zinc-800 hover:border-red-600/50" 
+                : "bg-slate-100 text-slate-800 border-slate-200 hover:border-red-500"
+            }`}
           >
             <span>🛒 ตะกร้า</span>
             {totalCartCount > 0 && (
@@ -241,51 +257,69 @@ export default function HomePage() {
             )}
           </button>
 
-          <div className="flex items-center gap-2 bg-zinc-950 px-3.5 py-1.5 rounded-full border border-red-600/40 shadow-[0_0_10px_rgba(220,38,38,0.2)]">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-red-600 shadow-[0_0_8px_#dc2626]"></span>
+          {/* Theme Switcher Toggle */}
+          <button
+            onClick={() => setIsDarkMode(!isDarkMode)}
+            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full border transition-all text-[11px] font-extrabold uppercase tracking-wide cursor-pointer ${
+              isDarkMode
+                ? "bg-zinc-950 border-red-600/40 text-zinc-200 shadow-[0_0_10px_rgba(220,38,38,0.2)] hover:border-red-500"
+                : "bg-white border-slate-300 text-slate-700 hover:border-red-500 shadow-sm"
+            }`}
+          >
+            <span className="relative flex h-2.5 w-2.5">
+              <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${isDarkMode ? "bg-red-400" : "bg-amber-400"}`}></span>
+              <span className={`relative inline-flex rounded-full h-2.5 w-2.5 ${isDarkMode ? "bg-red-600 shadow-[0_0_8px_#dc2626]" : "bg-amber-500"}`}></span>
             </span>
-            <span className="text-[11px] font-extrabold text-zinc-200 tracking-wide uppercase">
-              Dark Theme
-            </span>
-          </div>
+            <span>{isDarkMode ? "🌙 Dark Theme" : "☀️ Light Theme"}</span>
+          </button>
         </div>
       </header>
 
-      {/* Main Content */}
+      {/* Main Content Area */}
       <main className="max-w-7xl mx-auto px-4 md:px-8 pt-6">
         {/* Banner สินค้าแนะนำ */}
-        <div className="relative w-full bg-[#0d0d0d] rounded-3xl p-6 md:p-10 border border-red-600/40 shadow-[0_0_40px_rgba(220,38,38,0.15)] overflow-hidden mb-8">
+        <div className={`relative w-full rounded-3xl p-6 md:p-10 border transition-all shadow-xl overflow-hidden mb-8 ${
+          isDarkMode 
+            ? "bg-[#0d0d0d] border-red-600/40 shadow-[0_0_40px_rgba(220,38,38,0.15)]" 
+            : "bg-white border-slate-200 shadow-slate-200/50"
+        }`}>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
             <div className="lg:col-span-7 space-y-4">
-              <span className="inline-block bg-red-950/80 text-red-400 text-[10px] font-extrabold px-3 py-1 rounded-full border border-red-700/60 tracking-wider uppercase">
+              <span className="inline-block bg-red-600/10 text-red-600 text-[10px] font-extrabold px-3 py-1 rounded-full border border-red-600/30 tracking-wider uppercase">
                 🔥 RECOMMENDED PART
               </span>
 
-              <h2 className="text-2xl md:text-4xl font-black text-white italic tracking-wide leading-tight uppercase">
+              <h2 className={`text-2xl md:text-4xl font-black italic tracking-wide leading-tight uppercase ${
+                isDarkMode ? "text-white" : "text-slate-900"
+              }`}>
                 {featuredProduct.name}
               </h2>
 
-              <div className="text-xs font-bold text-zinc-400 flex items-center gap-2">
-                <span>BRAND: <strong className="text-red-500">{featuredProduct.brand}</strong></span>
+              <div className="text-xs font-bold flex items-center gap-2 text-zinc-400">
+                <span>BRAND: <strong className="text-red-600">{featuredProduct.brand}</strong></span>
                 <span>|</span>
-                <span>หมวดหมู่: <strong className="text-red-500">{featuredProduct.category}</strong></span>
+                <span>หมวดหมู่: <strong className="text-red-600">{featuredProduct.category}</strong></span>
               </div>
 
-              <p className="text-xs md:text-sm text-zinc-300 leading-relaxed font-light">
+              <p className={`text-xs md:text-sm leading-relaxed font-light ${
+                isDarkMode ? "text-zinc-300" : "text-slate-600"
+              }`}>
                 {featuredProduct.description}
               </p>
 
               <div className="pt-4 flex flex-wrap items-center gap-4">
-                <span className="text-3xl md:text-4xl font-black text-red-500 tracking-tight drop-shadow-[0_0_12px_rgba(220,38,38,0.6)]">
+                <span className="text-3xl md:text-4xl font-black text-red-600 tracking-tight drop-shadow-[0_0_12px_rgba(220,38,38,0.5)]">
                   ฿{featuredProduct.price.toLocaleString()}
                 </span>
 
                 <div className="flex items-center gap-3">
                   <button 
                     onClick={() => setSelectedProduct(featuredProduct)}
-                    className="px-5 py-2.5 bg-zinc-800/80 hover:bg-zinc-700 text-white text-xs font-bold rounded-xl border border-zinc-700 transition-all"
+                    className={`px-5 py-2.5 text-xs font-bold rounded-xl border transition-all ${
+                      isDarkMode 
+                        ? "bg-zinc-800/80 hover:bg-zinc-700 text-white border-zinc-700" 
+                        : "bg-slate-100 hover:bg-slate-200 text-slate-800 border-slate-300"
+                    }`}
                   >
                     🔍 รายละเอียด
                   </button>
@@ -300,7 +334,7 @@ export default function HomePage() {
             </div>
 
             <div className="lg:col-span-5 flex justify-center">
-              <div className="relative w-full max-w-sm h-[300px] rounded-2xl overflow-hidden border-2 border-red-600/80 shadow-[0_0_30px_rgba(220,38,38,0.3)] group">
+              <div className="relative w-full max-w-sm h-[300px] rounded-2xl overflow-hidden border-2 border-red-600/80 shadow-lg group">
                 <div className="absolute top-3 left-3 z-10 bg-black/80 backdrop-blur-md text-red-400 text-[10px] font-extrabold px-3 py-1 rounded-md border border-red-600/40 flex items-center gap-1">
                   <span>🏁</span> PERFORMANCE DISPLAY
                 </div>
@@ -323,7 +357,11 @@ export default function HomePage() {
               placeholder="ค้นหาชื่อสินค้า, แบรนด์..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-zinc-900/90 border border-zinc-800 text-xs text-white px-4 py-2.5 rounded-xl focus:outline-none focus:border-red-600 transition-colors"
+              className={`w-full text-xs px-4 py-2.5 rounded-xl border focus:outline-none focus:border-red-600 transition-colors ${
+                isDarkMode 
+                  ? "bg-zinc-900/90 border-zinc-800 text-white" 
+                  : "bg-white border-slate-300 text-slate-900"
+              }`}
             />
           </div>
 
@@ -335,7 +373,9 @@ export default function HomePage() {
                 className={`px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
                   selectedCategory === cat
                     ? "bg-red-600 text-white shadow-[0_0_15px_rgba(220,38,38,0.5)]"
-                    : "bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white"
+                    : isDarkMode 
+                      ? "bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white"
+                      : "bg-white text-slate-600 border border-slate-200 hover:text-slate-900"
                 }`}
               >
                 {cat}
@@ -349,7 +389,11 @@ export default function HomePage() {
           {filteredProducts.map((product) => (
             <div 
               key={product.id}
-              className="bg-[#0f0f0f] border border-zinc-800/80 hover:border-red-600/60 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-[0_0_20px_rgba(220,38,38,0.25)] flex flex-col justify-between group"
+              className={`border rounded-2xl overflow-hidden transition-all duration-300 hover:border-red-600/60 flex flex-col justify-between group ${
+                isDarkMode 
+                  ? "bg-[#0f0f0f] border-zinc-800/80 hover:shadow-[0_0_20px_rgba(220,38,38,0.25)]" 
+                  : "bg-white border-slate-200 hover:shadow-lg"
+              }`}
             >
               <div className="relative h-52 bg-zinc-950 overflow-hidden">
                 <img 
@@ -364,18 +408,26 @@ export default function HomePage() {
 
               <div className="p-4 flex-grow flex flex-col justify-between">
                 <div>
-                  <h3 className="font-bold text-sm text-zinc-100 group-hover:text-red-500 transition-colors line-clamp-2">
+                  <h3 className={`font-bold text-sm transition-colors line-clamp-2 ${
+                    isDarkMode ? "text-zinc-100 group-hover:text-red-500" : "text-slate-800 group-hover:text-red-600"
+                  }`}>
                     {product.name}
                   </h3>
-                  <p className="text-[11px] text-zinc-400 mt-1">BRAND: <span className="text-red-400 font-semibold">{product.brand}</span></p>
+                  <p className="text-[11px] text-zinc-400 mt-1">BRAND: <span className="text-red-500 font-semibold">{product.brand}</span></p>
                 </div>
 
-                <div className="mt-4 flex items-center justify-between pt-3 border-t border-zinc-800/80">
-                  <span className="text-base font-black text-red-500">฿{product.price.toLocaleString()}</span>
+                <div className={`mt-4 flex items-center justify-between pt-3 border-t ${
+                  isDarkMode ? "border-zinc-800/80" : "border-slate-100"
+                }`}>
+                  <span className="text-base font-black text-red-600">฿{product.price.toLocaleString()}</span>
                   <div className="flex items-center gap-1.5">
                     <button 
                       onClick={() => setSelectedProduct(product)}
-                      className="px-2.5 py-1.5 bg-zinc-800 text-zinc-200 text-xs font-bold rounded-lg hover:bg-zinc-700 transition-all"
+                      className={`px-2.5 py-1.5 text-xs font-bold rounded-lg transition-all ${
+                        isDarkMode 
+                          ? "bg-zinc-800 text-zinc-200 hover:bg-zinc-700" 
+                          : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                      }`}
                     >
                       รายละเอียด
                     </button>
@@ -393,18 +445,24 @@ export default function HomePage() {
         </div>
       </main>
 
-      {/* Cart Modal */}
+      {/* Cart Drawer Modal */}
       {isCartOpen && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex justify-end">
-          <div className="bg-[#0f0f0f] border-l border-zinc-800 w-full max-w-md h-full p-6 flex flex-col justify-between relative shadow-2xl">
+          <div className={`w-full max-w-md h-full p-6 flex flex-col justify-between relative shadow-2xl border-l ${
+            isDarkMode ? "bg-[#0f0f0f] border-zinc-800" : "bg-white border-slate-200"
+          }`}>
             <div>
-              <div className="flex items-center justify-between pb-4 border-b border-zinc-800">
-                <h2 className="text-lg font-bold text-red-500 flex items-center gap-2">
+              <div className={`flex items-center justify-between pb-4 border-b ${
+                isDarkMode ? "border-zinc-800" : "border-slate-200"
+              }`}>
+                <h2 className="text-lg font-bold text-red-600 flex items-center gap-2">
                   🛒 KHONGMAN CART ({totalCartCount})
                 </h2>
                 <button
                   onClick={() => setIsCartOpen(false)}
-                  className="text-zinc-400 hover:text-white w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center font-bold"
+                  className={`w-8 h-8 rounded-full flex items-center justify-center font-bold ${
+                    isDarkMode ? "bg-zinc-800 text-zinc-400 hover:text-white" : "bg-slate-100 text-slate-600 hover:text-slate-900"
+                  }`}
                 >
                   ✕
                 </button>
@@ -420,7 +478,9 @@ export default function HomePage() {
                   cart.map((item) => (
                     <div
                       key={item.id}
-                      className="flex items-center justify-between bg-zinc-950 p-3 rounded-xl border border-zinc-800"
+                      className={`flex items-center justify-between p-3 rounded-xl border ${
+                        isDarkMode ? "bg-zinc-950 border-zinc-800" : "bg-slate-50 border-slate-200"
+                      }`}
                     >
                       <div className="flex items-center gap-3">
                         <img
@@ -429,22 +489,28 @@ export default function HomePage() {
                           className="w-12 h-12 rounded-lg object-cover"
                         />
                         <div>
-                          <h4 className="font-bold text-xs text-zinc-200 line-clamp-1">{item.name}</h4>
-                          <p className="text-xs text-red-500 font-bold">฿{item.price.toLocaleString()}</p>
+                          <h4 className={`font-bold text-xs line-clamp-1 ${isDarkMode ? "text-zinc-200" : "text-slate-800"}`}>
+                            {item.name}
+                          </h4>
+                          <p className="text-xs text-red-600 font-bold">฿{item.price.toLocaleString()}</p>
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-2 bg-zinc-900 px-2 py-1 rounded-lg border border-zinc-800">
+                      <div className={`flex items-center gap-2 px-2 py-1 rounded-lg border ${
+                        isDarkMode ? "bg-zinc-900 border-zinc-800" : "bg-white border-slate-200"
+                      }`}>
                         <button
                           onClick={() => updateQuantity(item.id, -1)}
-                          className="text-zinc-400 hover:text-red-500 font-bold px-1"
+                          className="text-zinc-400 hover:text-red-600 font-bold px-1"
                         >
                           -
                         </button>
-                        <span className="text-xs font-bold text-zinc-200 w-4 text-center">{item.quantity}</span>
+                        <span className={`text-xs font-bold w-4 text-center ${isDarkMode ? "text-zinc-200" : "text-slate-800"}`}>
+                          {item.quantity}
+                        </span>
                         <button
                           onClick={() => updateQuantity(item.id, 1)}
-                          className="text-zinc-400 hover:text-red-500 font-bold px-1"
+                          className="text-zinc-400 hover:text-red-600 font-bold px-1"
                         >
                           +
                         </button>
@@ -455,14 +521,14 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="pt-4 border-t border-zinc-800">
+            <div className={`pt-4 border-t ${isDarkMode ? "border-zinc-800" : "border-slate-200"}`}>
               <div className="flex justify-between items-center mb-4">
-                <span className="text-xs text-zinc-400">ราคารวมทั้งหมด:</span>
-                <span className="text-2xl font-black text-red-500">฿{totalPrice.toLocaleString()}</span>
+                <span className={`text-xs ${isDarkMode ? "text-zinc-400" : "text-slate-500"}`}>ราคารวมทั้งหมด:</span>
+                <span className="text-2xl font-black text-red-600">฿{totalPrice.toLocaleString()}</span>
               </div>
               <button
                 disabled={cart.length === 0}
-                className="w-full py-3 bg-red-600 hover:bg-red-500 disabled:bg-zinc-800 disabled:text-zinc-600 text-white font-extrabold rounded-xl transition-all shadow-[0_0_15px_rgba(220,38,38,0.4)]"
+                className="w-full py-3 bg-red-600 hover:bg-red-500 disabled:bg-zinc-800 disabled:text-zinc-600 text-white font-extrabold rounded-xl transition-all shadow-md"
               >
                 ยืนยันการสั่งซื้อ
               </button>
@@ -471,13 +537,17 @@ export default function HomePage() {
         </div>
       )}
 
-      {/* Detail Modal */}
+      {/* Product Detail Modal */}
       {selectedProduct && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-[#0f0f0f] border border-red-600/40 rounded-2xl max-w-lg w-full p-6 relative shadow-[0_0_30px_rgba(220,38,38,0.25)]">
+          <div className={`border rounded-2xl max-w-lg w-full p-6 relative shadow-2xl ${
+            isDarkMode ? "bg-[#0f0f0f] border-red-600/40" : "bg-white border-slate-200"
+          }`}>
             <button
               onClick={() => setSelectedProduct(null)}
-              className="absolute top-4 right-4 text-zinc-400 hover:text-white w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center font-bold"
+              className={`absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center font-bold ${
+                isDarkMode ? "bg-zinc-800 text-zinc-400 hover:text-white" : "bg-slate-100 text-slate-600 hover:text-slate-900"
+              }`}
             >
               ✕
             </button>
@@ -488,17 +558,21 @@ export default function HomePage() {
                 className="w-full h-full object-cover rounded-xl"
               />
             </div>
-            <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-red-950/80 text-red-400 border border-red-800/60">
+            <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-red-600/10 text-red-600 border border-red-600/30">
               {selectedProduct.category}
             </span>
-            <h2 className="text-xl font-bold text-zinc-100 mt-2">{selectedProduct.name}</h2>
-            <p className="text-xs text-red-400 font-semibold">BRAND: {selectedProduct.brand}</p>
+            <h2 className={`text-xl font-bold mt-2 ${isDarkMode ? "text-zinc-100" : "text-slate-900"}`}>
+              {selectedProduct.name}
+            </h2>
+            <p className="text-xs text-red-600 font-semibold">BRAND: {selectedProduct.brand}</p>
             <p className="text-xs text-zinc-400 mt-1">ผู้ขาย: {selectedProduct.seller}</p>
-            <p className="text-xs text-zinc-300 mt-3 bg-zinc-950/80 p-3 rounded-lg border border-zinc-800">
+            <p className={`text-xs mt-3 p-3 rounded-lg border ${
+              isDarkMode ? "bg-zinc-950/80 text-zinc-300 border-zinc-800" : "bg-slate-50 text-slate-600 border-slate-200"
+            }`}>
               {selectedProduct.description}
             </p>
             <div className="flex items-center justify-between mt-6">
-              <span className="text-2xl font-black text-red-500">฿{selectedProduct.price.toLocaleString()}</span>
+              <span className="text-2xl font-black text-red-600">฿{selectedProduct.price.toLocaleString()}</span>
               <button 
                 onClick={() => {
                   addToCart(selectedProduct);
