@@ -16,6 +16,50 @@ interface CartItem extends Product {
   quantity: number;
 }
 
+// ข้อมูลสินค้าตัวอย่างอุปกรณ์แต่งรถ
+const INITIAL_PRODUCTS: Product[] = [
+  {
+    id: "demo-1",
+    title: "โช้คอัพ YSS G-Sport Smooth Honda Wave 125i / 110i",
+    price: "5700",
+    category: "ระบบกันสะเทือน",
+    image: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=800&q=80",
+    sellerInfo: "ร้าน Khongman Custom Parts / โทร 081-234-5678",
+  },
+  {
+    id: "demo-2",
+    title: "ท่อไอเสีย Akrapovic Slip-On Line (Titanium) For ZX-25R / ZX-4R",
+    price: "31450",
+    category: "ระบบไอเสีย",
+    image: "https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=800&q=80",
+    sellerInfo: "นายช่างกิตติ / ปวส.2 แผนกช่างยนต์",
+  },
+  {
+    id: "demo-3",
+    title: "ปั๊มเบรกล่าง Brembo Corsa Corta 4Pot ขาตรง (แท้ 100%)",
+    price: "12800",
+    category: "ระบบเบรก",
+    image: "https://images.unsplash.com/photo-1609630875171-b1321377ee65?w=800&q=80",
+    sellerInfo: "Garage 99 Racing / Line: @garage99",
+  },
+  {
+    id: "demo-4",
+    title: "ชุดล้อแม็กแต่ง CNC Racing Wheel Light Weight 1.4-17",
+    price: "8900",
+    category: "ล้อ & ยาง",
+    image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=800&q=80",
+    sellerInfo: "ต้นทาง อะไหล่แต่ง / โทร 089-999-8888",
+  },
+  {
+    id: "demo-5",
+    title: "ชุดโซ่-สเตอร์ RK 520 O-Ring สีทองเหลืองแท้",
+    price: "3200",
+    category: "ระบบขับเคลื่อน",
+    image: "https://images.unsplash.com/photo-1558980664-3a031cf67ea8?w=800&q=80",
+    sellerInfo: "KM Official Store / ปวช.3 แผนกเชื่อม",
+  },
+];
+
 export default function HomePage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -23,15 +67,18 @@ export default function HomePage() {
   const [selectedCategory, setSelectedCategory] = useState("ทั้งหมด");
   const [searchTerm, setSearchTerm] = useState("");
 
-  // โหลดรายการสินค้าและตะกร้าจาก LocalStorage
+  // โหลดรายการสินค้าและตะกร้าจาก LocalStorage (หากไม่มีจะใช้ INITIAL_PRODUCTS)
   useEffect(() => {
     const savedProducts = localStorage.getItem("km_products");
-    if (savedProducts) {
+    if (savedProducts && JSON.parse(savedProducts).length > 0) {
       try {
         setProducts(JSON.parse(savedProducts));
       } catch (e) {
-        console.error("Error loading products", e);
+        setProducts(INITIAL_PRODUCTS);
       }
+    } else {
+      setProducts(INITIAL_PRODUCTS);
+      localStorage.setItem("km_products", JSON.stringify(INITIAL_PRODUCTS));
     }
 
     const savedCart = localStorage.getItem("km_cart");
@@ -44,13 +91,11 @@ export default function HomePage() {
     }
   }, []);
 
-  // บันทึกตะกร้าลง LocalStorage เมื่อมีการเปลี่ยนแปลง
   const updateCart = (newCart: CartItem[]) => {
     setCart(newCart);
     localStorage.setItem("km_cart", JSON.stringify(newCart));
   };
 
-  // ฟังก์ชันเพิ่มสินค้าลงตะกร้า
   const handleAddToCart = (product: Product) => {
     const existingIndex = cart.findIndex((item) => item.id === product.id);
     if (existingIndex > -1) {
@@ -62,7 +107,6 @@ export default function HomePage() {
     }
   };
 
-  // ปรับจำนวนสินค้าในตะกร้า
   const handleUpdateQuantity = (id: string, delta: number) => {
     const updatedCart = cart
       .map((item) => {
@@ -77,12 +121,10 @@ export default function HomePage() {
     updateCart(updatedCart);
   };
 
-  // ลบสินค้าออกจากตะกร้า
   const handleRemoveFromCart = (id: string) => {
     updateCart(cart.filter((item) => item.id !== id));
   };
 
-  // ลบประกาศสินค้า
   const handleDeleteProduct = (id: string) => {
     if (confirm("คุณต้องการลบรายการสินค้านี้ใช่หรือไม่?")) {
       const updated = products.filter((p) => p.id !== id);
@@ -140,7 +182,6 @@ export default function HomePage() {
         </div>
 
         <div className="flex items-center gap-3">
-          {/* ปุ่มตะกร้าสินค้า */}
           <button
             onClick={() => setIsCartOpen(true)}
             className="relative p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 hover:border-red-600 text-white transition-all"
@@ -200,15 +241,15 @@ export default function HomePage() {
             <div className="w-16 h-16 bg-zinc-900 border border-zinc-800 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl">
               📦
             </div>
-            <h2 className="text-lg font-bold text-white mb-1">ไม่มีสินค้าในระบบ</h2>
+            <h2 className="text-lg font-bold text-white mb-1">ไม่พบสินค้าที่คุณค้นหา</h2>
             <p className="text-xs text-zinc-500 mb-6">
-              คลิกปุ่มด้านล่างเพื่อเพิ่มสินค้าและรูปภาพของคุณได้เลย
+              ลองเปลี่ยนคีย์เวิร์ดค้นหา หรือคลิกปุ่มลงขายสินค้าใหม่
             </p>
             <Link
               href="/product"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold transition-all shadow-[0_0_20px_rgba(220,38,38,0.4)]"
             >
-              + เพิ่มสินค้าชิ้นแรก
+              + ลงขายสินค้าเพิ่ม
             </Link>
           </div>
         ) : (
