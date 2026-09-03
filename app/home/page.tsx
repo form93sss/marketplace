@@ -2,11 +2,11 @@
 import React, { useState, useEffect } from "react";
 
 // ----------------------------------------------------------------------
-// 1. Loading Screen (CAMPUS ARCHIVE - Dark Orange Theme)
+// 1. Loading Screen (GARAGE ARCHIVE Theme)
 // ----------------------------------------------------------------------
 function LoadingScreen({ onFinished }: { onFinished: () => void }) {
   const [progress, setProgress] = useState(0);
-  const textToType = "CAMPUS ARCHIVE";
+  const textToType = "GARAGE ARCHIVE";
   const [displayedText, setDisplayedText] = useState("");
 
   useEffect(() => {
@@ -41,7 +41,7 @@ function LoadingScreen({ onFinished }: { onFinished: () => void }) {
       </div>
 
       <p className="text-xs text-orange-500/80 tracking-widest font-mono mb-8 uppercase">
-        POWERED BY NEXT.JS & VERCEL
+        AUTO CUSTOM & PERFORMANCE PARTS
       </p>
 
       <div className="w-64 md:w-80 space-y-2">
@@ -53,7 +53,7 @@ function LoadingScreen({ onFinished }: { onFinished: () => void }) {
         </div>
 
         <div className="flex justify-between items-center text-[10px] font-mono text-orange-400/70">
-          <span>SYSTEM INITIALIZING...</span>
+          <span>TUNING SYSTEM...</span>
           <span className="font-bold text-orange-500">{progress}%</span>
         </div>
       </div>
@@ -62,12 +62,12 @@ function LoadingScreen({ onFinished }: { onFinished: () => void }) {
 }
 
 // ----------------------------------------------------------------------
-// 2. Types & Expanded Anime/Manga Data
+// 2. Types & Auto Parts Data
 // ----------------------------------------------------------------------
 interface Product {
   id: number;
   name: string;
-  author: string;
+  brand: string;
   price: number;
   seller: string;
   category: string;
@@ -81,130 +81,100 @@ interface CartItem extends Product {
 
 const featuredProduct: Product = {
   id: 100,
-  name: "JUJUTSU KAISEN (มหาเวทย์ผนึกมาร) VOL.1-24",
-  author: "GEGE AKUTAMI",
-  price: 1450,
-  seller: "Kittiphat Archive",
-  category: "อนิเมะ & มังงะ",
-  image: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=800&auto=format&fit=crop",
-  description: "มังงะมหาเวทย์ผนึกมาร เล่ม 1-24 สภาพสะสมกริบๆ เก็บในซองอย่างดี ไม่เคยเปียกน้ำ ไม่มีรอยพับ สภาพ 98%+"
+  name: "ชุดท่อไอเสีย Titanium Full Exhaust System",
+  brand: "AKRAPOVIČ",
+  price: 48500,
+  seller: "Garage Performance",
+  category: "ระบบไอเสีย & เครื่องยนต์",
+  image: "https://images.unsplash.com/photo-1563720223185-11003d516935?q=80&w=800&auto=format&fit=crop",
+  description: "ท่อไทเทเนียมแท้ทั้งเส้น น้ำหนักเบาเป็นพิเศษ เพิ่มอัตราเร่งและให้เสียงทุ้มดุดัน สภาพใหม่ 99% พร้อมปลายคาร์บอน"
 };
 
 const mockProducts: Product[] = [
   featuredProduct,
   {
     id: 1,
-    name: "Chainsaw Man Vol.1-12 ครบชุด",
-    author: "TATSUKI FUJIMOTO",
-    price: 890,
-    seller: "นายสมชาย (ปวส.2)",
-    category: "อนิเมะ & มังงะ",
-    image: "https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=600&auto=format&fit=crop",
-    description: "สภาพดีมาก อ่านมือเดียว ไม่มีหน้าขาด ซองใสครบทุกเล่ม"
+    name: "ล้อแม็กดิสก์ลายสปอร์ต TE37 Bronze 18 นิ้ว",
+    brand: "RAYS VOLK RACING",
+    price: 38000,
+    seller: "ช่างนนท์ ออโต้",
+    category: "ล้อ & ยาง",
+    image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=600&auto=format&fit=crop",
+    description: "ล้อแท้ Japan ขอบ 18 กว้าง 8.5/9.5 ออฟเซ็ตสเปกตรง ไม่เคยซ่อม สภาพสวยมาก"
   },
   {
     id: 2,
-    name: "Spy x Family Vol.1-10",
-    author: "TATSUYA ENDO",
-    price: 750,
-    seller: "นางสาวสมหญิง (ปวช.3)",
-    category: "อนิเมะ & มังงะ",
-    image: "https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=600&auto=format&fit=crop",
-    description: "พร้อมของแถมโปสการ์ดรอบพรีออเดอร์ สภาพสะสมสวยๆ"
+    name: "ชุดโช้คอัพสตรีทปรับเกลียว MonoTube",
+    brand: "TEIN FLEX Z",
+    price: 29500,
+    seller: "Kittiphat Tuning",
+    category: "ช่วงล่าง & เบรก",
+    image: "https://images.unsplash.com/photo-1486006920555-c77dce18193b?q=80&w=600&auto=format&fit=crop",
+    description: "ปรับความหนืดได้ 16 ระดับ หนึบแน่น ไม่กระด้าง นุ่มนวลสำหรับใช้งานประจำวัน"
   },
   {
     id: 3,
-    name: "Demon Slayer (ดาบพิฆาตอสูร) ยกเซ็ต 1-23",
-    author: "KOYOHARU GOTOUGE",
-    price: 1650,
-    seller: "กิตติพงษ์ (ปวส.1)",
-    category: "อนิเมะ & มังงะ",
-    image: "https://images.unsplash.com/photo-1618336753974-aae8e04506aa?q=80&w=600&auto=format&fit=crop",
-    description: "เล่ม 1-23 จบ สภาพบ้านสวยๆ ไม่มีรอยขีดเขียน"
+    name: "ชุดเบรกคาลิปเปอร์ 6-Pot พร้อมจาน 355mm",
+    brand: "BREMBO GT",
+    price: 42000,
+    seller: "Brake Master Shop",
+    category: "ช่วงล่าง & เบรก",
+    image: "https://images.unsplash.com/photo-1600706432520-256d6a2f4c93?q=80&w=600&auto=format&fit=crop",
+    description: "คาลิปเปอร์สีส้ม Custom จานเบรกเจาะรูระบายความร้อน เบรกอยู่นิ่ง มั่นใจทุกย่านความเร็ว"
   },
   {
     id: 4,
-    name: "Tokyo Revengers (โตเกียว รีベンเจอร์ส) 1-31 จบ",
-    author: "KEN WAKUI",
-    price: 2100,
-    seller: "อาร์ม สตรีทไลฟ์",
-    category: "อนิเมะ & มังงะ",
-    image: "https://images.unsplash.com/photo-1563089145-599997674d42?q=80&w=600&auto=format&fit=crop",
-    description: "แก๊งค์โตมันยกชุด สภาพกริบ 99% ใส่ซองกันรอยให้ทุกเล่ม"
+    name: "เบาะบัคเก็ตซีทแข่ง Full Carbon Fiber",
+    brand: "BRIDE ZETA IV",
+    price: 24500,
+    seller: "Street Racing TH",
+    category: "ตกแต่งภายใน",
+    image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=600&auto=format&fit=crop",
+    description: "โครงคาร์บอนไฟเบอร์เบาพิเศษ กระชับลำตัว ผ้าสีดำปักโลโก้สีส้ม สภาพสวยไม่มีรอยฉีกขาด"
   },
   {
     id: 5,
-    name: "Blue Lock (ขังหลงโกล) เล่ม 1-22",
-    author: "MUNEYUKI KANESHIRO",
-    price: 1550,
-    seller: "บอลมังงะ (ปี 2)",
-    category: "อนิเมะ & มังงะ",
-    image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=600&auto=format&fit=crop",
-    description: "มังงะฟุตบอลสุดเดือด เล่ม 1-22 สภาพมือหนึ่งในซอง"
+    name: "พวงมาลัยหนังแท้ด้ายส้มทรง D-Shape",
+    brand: "MOMO DRIFTING",
+    price: 8900,
+    seller: "อาร์ต พวงมาลัยซิ่ง",
+    category: "ตกแต่งภายใน",
+    image: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?q=80&w=600&auto=format&fit=crop",
+    description: "จับกระชับมือ หนังรูระบายอากาศ เดินด้ายส้มสปอร์ต พร้อมคอพวงมาลัยตรงรุ่น"
   },
   {
     id: 6,
-    name: "Attack on Titan (ผ่าพิภพไททัน) 1-34 จบ Boxset",
-    author: "HAJIME ISAYAMA",
-    price: 3200,
-    seller: "คลังไททัน TH",
-    category: "อนิเมะ & มังงะ",
-    image: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=600&auto=format&fit=crop",
-    description: "บ็อกเซ็ตครบชุด สภาพมือสองเกรด A+ หายากมากน่าสะสม"
+    name: "ฝากระโปรงหน้า คาร์บอนไฟเบอร์ทรงเกล็ดฉลาม",
+    brand: "SEIBON CARBON",
+    price: 19500,
+    seller: "Carbon Custom Tech",
+    category: "ชุดแต่งภายนอก",
+    image: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=600&auto=format&fit=crop",
+    description: "ลายคาร์บอนชัดเป๊ะ เคลือบเงา UV ไม่ขึ้นเหลือง ช่วยระบายความร้อนในห้องเครื่อง"
   },
   {
     id: 7,
-    name: "One Piece Vol.100-105 Set",
-    author: "EIICHIRO ODA",
-    price: 450,
-    seller: "แฟนวันพีซ 90s",
-    category: "อนิเมะ & มังงะ",
-    image: "https://images.unsplash.com/photo-1612036782180-6f0b6cd846fe?q=80&w=600&auto=format&fit=crop",
-    description: "ภาควาโนะคุนิช่วงพีค สภาพใหม่กริบ อ่านรอบเดียว"
+    name: "สปอยเลอร์หลังทรงสูง GT-Wing Carbon",
+    brand: "VOLTEX RACING",
+    price: 16800,
+    seller: "Aero Dynamics",
+    category: "ชุดแต่งภายนอก",
+    image: "https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?q=80&w=600&auto=format&fit=crop",
+    description: "เพิ่มแรงกด (Downforce) ท้ายรถขณะความเร็วสูง ขาอลูมิเนียม CNC แข็งแรงทนทาน"
   },
   {
     id: 8,
-    name: "My Hero Academia Vol.1-38",
-    author: "KOHEI HORIKOSHI",
-    price: 2400,
-    seller: "โอตาคุ สายบวก",
-    category: "อนิเมะ & มังงะ",
-    image: "https://images.unsplash.com/photo-1560972550-aba3456b5564?q=80&w=600&auto=format&fit=crop",
-    description: "มายฮีโร่อคาเดเมีย ยกเซ็ตยาวๆ 38 เล่ม สภาพเก็บสะสม"
-  },
-  {
-    id: 9,
-    name: "Bleach (บลีช เทพมรณะ) ฉบับ Big Book 1-26",
-    author: "TITE KUBO",
-    price: 2900,
-    seller: "Retro Manga",
-    category: "อนิเมะ & มังงะ",
-    image: "https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?q=80&w=600&auto=format&fit=crop",
-    description: "พิมพ์ใหญ่ Big Book กระดาษถนอมสายตา สภาพ 95%"
-  },
-  {
-    id: 10,
-    name: "Solo Leveling นิยาย/มังฮวา Vol.1-5",
-    author: "DUBU / CHU-GONG",
-    price: 1850,
-    seller: "Hunter Archive",
-    category: "นิยาย & ซีรีส์",
-    image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=600&auto=format&fit=crop",
-    description: "เวอร์ชันสี่สีทั้งเล่ม งานภาพอลังการ สภาพใหม่กริบ"
-  },
-  {
-    id: 11,
-    name: "Hunter x Hunter เล่ม 1-36",
-    author: "YOSHIHIRO TOGASHI",
-    price: 2750,
-    seller: "อาจารย์กิต",
-    category: "อนิเมะ & มังงะ",
-    image: "https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=600&auto=format&fit=crop",
-    description: "ฮันเตอร์ x ฮันเตอร์ การ์ดเกมระดับตำนาน เล่ม 1-36 ครบ"
+    name: "ชุดกรองอากาศคาร์บอนดักอากาศเย็น",
+    brand: "GRUPPE M",
+    price: 15900,
+    seller: "Engine Intake Zone",
+    category: "ระบบไอเสีย & เครื่องยนต์",
+    image: "https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?q=80&w=600&auto=format&fit=crop",
+    description: "เพิ่มปริมาณอากาศเข้าห้องเผาไหม้ คันเร่งเบาขึ้นอย่างเห็นได้ชัด เสียงกรองดูดอากาศไพเราะ"
   }
 ];
 
-const categories = ["ทั้งหมด", "อนิเมะ & มังงะ", "นิยาย & ซีรีส์", "เทคโนโลยี", "จิตวิทยา"];
+const categories = ["ทั้งหมด", "ระบบไอเสีย & เครื่องยนต์", "ช่วงล่าง & เบรก", "ล้อ & ยาง", "ชุดแต่งภายนอก", "ตกแต่งภายใน"];
 
 // ----------------------------------------------------------------------
 // 3. Main Page Component
@@ -252,7 +222,7 @@ export default function HomePage() {
   const filteredProducts = mockProducts.filter((p) => {
     const matchesCategory = selectedCategory === "ทั้งหมด" || p.category === selectedCategory;
     const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          p.author.toLowerCase().includes(searchQuery.toLowerCase());
+                          p.brand.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
@@ -267,7 +237,7 @@ export default function HomePage() {
         <div className="flex flex-col">
           <span className="text-[9px] font-bold text-orange-500 tracking-widest uppercase">EST. 2026</span>
           <h1 className="text-xl md:text-2xl font-black tracking-tight text-white flex items-center gap-1">
-            CAMPUS <span className="text-orange-500 drop-shadow-[0_0_10px_rgba(249,115,22,0.8)]">ARCHIVE</span>
+            GARAGE <span className="text-orange-500 drop-shadow-[0_0_10px_rgba(249,115,22,0.8)]">ARCHIVE</span>
           </h1>
         </div>
 
@@ -289,7 +259,7 @@ export default function HomePage() {
           </button>
 
           <button className="bg-orange-500 hover:bg-orange-400 text-white font-extrabold px-4 py-2 rounded-lg transition-all shadow-[0_0_15px_rgba(249,115,22,0.4)]">
-            + ฝากขาย
+            + ฝากขายอะไหล่
           </button>
         </div>
       </header>
@@ -301,15 +271,15 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
             <div className="lg:col-span-7 space-y-4">
               <span className="inline-block bg-orange-950/60 text-orange-400 text-[10px] font-extrabold px-3 py-1 rounded-full border border-orange-800/60 tracking-wider uppercase">
-                RECOMMENDED ARCHIVE
+                RECOMMENDED PERFORMANCE PART
               </span>
 
-              <h2 className="text-3xl md:text-5xl font-black text-white italic tracking-wide leading-tight uppercase">
+              <h2 className="text-2xl md:text-4xl font-black text-white italic tracking-wide leading-tight uppercase">
                 {featuredProduct.name}
               </h2>
 
               <div className="text-xs font-bold text-zinc-400 flex items-center gap-2">
-                <span>AUTHOR: <strong className="text-orange-500">{featuredProduct.author}</strong></span>
+                <span>BRAND: <strong className="text-orange-500">{featuredProduct.brand}</strong></span>
                 <span>|</span>
                 <span>CATEGORY: <strong className="text-orange-500">{featuredProduct.category}</strong></span>
               </div>
@@ -320,7 +290,7 @@ export default function HomePage() {
 
               <div className="pt-4 flex flex-wrap items-center gap-4">
                 <span className="text-3xl md:text-4xl font-black text-orange-500 tracking-tight drop-shadow-[0_0_10px_rgba(249,115,22,0.5)]">
-                  ฿{featuredProduct.price}
+                  ฿{featuredProduct.price.toLocaleString()}
                 </span>
 
                 <div className="flex items-center gap-3">
@@ -343,7 +313,7 @@ export default function HomePage() {
             <div className="lg:col-span-5 flex justify-center">
               <div className="relative w-full max-w-sm h-[320px] rounded-2xl overflow-hidden border-2 border-orange-500/80 shadow-[0_0_30px_rgba(249,115,22,0.3)] group">
                 <div className="absolute top-3 left-3 z-10 bg-black/70 backdrop-blur-md text-orange-400 text-[10px] font-extrabold px-3 py-1 rounded-md border border-orange-500/40 flex items-center gap-1">
-                  <span>🔥</span> 3D ARCHIVE DISPLAY
+                  <span>🔥</span> 3D PARTS DISPLAY
                 </div>
                 <img 
                   src={featuredProduct.image} 
@@ -361,7 +331,7 @@ export default function HomePage() {
           <div className="w-full md:w-72 relative">
             <input
               type="text"
-              placeholder="ค้นหาชื่อเรื่อง, ผู้แต่ง..."
+              placeholder="ค้นหาชื่อสินค้า, แบรนด์..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-zinc-900/90 border border-zinc-800 text-xs text-white px-4 py-2.5 rounded-xl focus:outline-none focus:border-orange-500 transition-colors"
@@ -369,7 +339,7 @@ export default function HomePage() {
           </div>
 
           <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto scrollbar-none pb-1">
-            <span className="text-xs text-zinc-500 font-bold whitespace-nowrap mr-1">เรียงลำดับ: ปกติ</span>
+            <span className="text-xs text-zinc-500 font-bold whitespace-nowrap mr-1">หมวดหมู่:</span>
             {categories.map((cat) => (
               <button
                 key={cat}
@@ -386,14 +356,14 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Product Grid (12 Items) */}
+        {/* Product Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredProducts.map((product) => (
             <div 
               key={product.id}
               className="bg-[#0f0e0f] border border-zinc-800/80 hover:border-orange-500/50 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-[0_0_20px_rgba(249,115,22,0.2)] flex flex-col justify-between group"
             >
-              <div className="relative h-56 bg-zinc-950 overflow-hidden">
+              <div className="relative h-52 bg-zinc-950 overflow-hidden">
                 <img 
                   src={product.image} 
                   alt={product.name} 
@@ -409,11 +379,11 @@ export default function HomePage() {
                   <h3 className="font-bold text-sm text-zinc-100 group-hover:text-orange-500 transition-colors line-clamp-2">
                     {product.name}
                   </h3>
-                  <p className="text-[11px] text-zinc-400 mt-1">AUTHOR: {product.author}</p>
+                  <p className="text-[11px] text-zinc-400 mt-1">BRAND: <span className="text-orange-400 font-semibold">{product.brand}</span></p>
                 </div>
 
                 <div className="mt-4 flex items-center justify-between pt-3 border-t border-zinc-800/60">
-                  <span className="text-lg font-black text-orange-500">฿{product.price}</span>
+                  <span className="text-base font-black text-orange-500">฿{product.price.toLocaleString()}</span>
                   <div className="flex items-center gap-1.5">
                     <button 
                       onClick={() => setSelectedProduct(product)}
@@ -442,7 +412,7 @@ export default function HomePage() {
             <div>
               <div className="flex items-center justify-between pb-4 border-b border-zinc-800">
                 <h2 className="text-lg font-bold text-orange-500 flex items-center gap-2">
-                  🛒 ARCHIVE CART ({totalCartCount})
+                  🛒 PARTS CART ({totalCartCount})
                 </h2>
                 <button
                   onClick={() => setIsCartOpen(false)}
@@ -472,7 +442,7 @@ export default function HomePage() {
                         />
                         <div>
                           <h4 className="font-bold text-xs text-zinc-200 line-clamp-1">{item.name}</h4>
-                          <p className="text-xs text-orange-500 font-bold">฿{item.price}</p>
+                          <p className="text-xs text-orange-500 font-bold">฿{item.price.toLocaleString()}</p>
                         </div>
                       </div>
 
@@ -500,13 +470,13 @@ export default function HomePage() {
             <div className="pt-4 border-t border-zinc-800">
               <div className="flex justify-between items-center mb-4">
                 <span className="text-xs text-zinc-400">ราคารวมทั้งหมด:</span>
-                <span className="text-2xl font-black text-orange-500">฿{totalPrice}</span>
+                <span className="text-2xl font-black text-orange-500">฿{totalPrice.toLocaleString()}</span>
               </div>
               <button
                 disabled={cart.length === 0}
                 className="w-full py-3 bg-orange-500 hover:bg-orange-400 disabled:bg-zinc-800 disabled:text-zinc-600 text-white font-extrabold rounded-xl transition-all shadow-lg"
               >
-                ยืนยันการสั่งซื้อ
+                ชำระเงินสั่งซื้อ
               </button>
             </div>
           </div>
@@ -534,13 +504,13 @@ export default function HomePage() {
               {selectedProduct.category}
             </span>
             <h2 className="text-xl font-bold text-zinc-100 mt-2">{selectedProduct.name}</h2>
-            <p className="text-xs text-orange-400 font-semibold">AUTHOR: {selectedProduct.author}</p>
+            <p className="text-xs text-orange-400 font-semibold">BRAND: {selectedProduct.brand}</p>
             <p className="text-xs text-zinc-400 mt-1">ผู้ขาย: {selectedProduct.seller}</p>
             <p className="text-xs text-zinc-300 mt-3 bg-zinc-950/60 p-3 rounded-lg border border-zinc-800">
               {selectedProduct.description}
             </p>
             <div className="flex items-center justify-between mt-6">
-              <span className="text-2xl font-black text-orange-500">฿{selectedProduct.price}</span>
+              <span className="text-2xl font-black text-orange-500">฿{selectedProduct.price.toLocaleString()}</span>
               <button 
                 onClick={() => {
                   addToCart(selectedProduct);
