@@ -79,8 +79,6 @@ interface CartItem extends Product {
   quantity: number;
 }
 
-const LOGO_URL = "https://images.unsplash.com/photo-1558981806-ec527fa84c39?q=80&w=800&auto=format&fit=crop"; // โลโก้แต่งรถ
-
 const featuredProduct: Product = {
   id: 100,
   name: "ชุดท่อไอเสีย Carbon / Titanium Full System",
@@ -205,27 +203,32 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-[#070707] text-zinc-100 font-sans selection:bg-red-600 selection:text-white pb-24">
       {/* Header / Navbar */}
-      <header className="w-full bg-[#0a0a0a]/95 backdrop-blur-md border-b border-red-950/60 sticky top-0 z-40 px-4 md:px-8 py-3 flex items-center justify-between">
-        {/* LOGO AREA */}
+      <header className="w-full bg-[#0a0a0a]/95 backdrop-blur-md border-b border-red-950/80 sticky top-0 z-40 px-4 md:px-8 py-3 flex items-center justify-between shadow-[0_4px_20px_rgba(0,0,0,0.8)]">
+        {/* LOGO & BRANDING */}
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-black border-2 border-red-600 overflow-hidden shadow-[0_0_15px_rgba(220,38,38,0.5)] flex items-center justify-center">
-            <span className="font-black text-xs text-red-500 tracking-tighter">KM</span>
+          <div className="w-10 h-10 md:w-11 md:h-11 rounded-xl bg-gradient-to-br from-red-600 via-red-800 to-black p-[2px] shadow-[0_0_15px_rgba(220,38,38,0.6)]">
+            <div className="w-full h-full bg-black rounded-[10px] flex items-center justify-center border border-red-500/30">
+              <span className="font-black text-xs md:text-sm text-transparent bg-clip-text bg-gradient-to-r from-white via-zinc-200 to-red-500 tracking-tighter">
+                KM
+              </span>
+            </div>
           </div>
 
-          <div className="flex flex-col">
-            <span className="text-[9px] font-bold text-red-500 tracking-widest uppercase">PROJECT CUSTOM PARTS</span>
-            <h1 className="text-lg md:text-2xl font-black tracking-tight text-white flex items-center gap-1">
-              KhongMan <span className="text-red-600 drop-shadow-[0_0_10px_rgba(220,38,38,0.8)]">TongMi</span>
+          <div className="flex flex-col justify-center">
+            <h1 className="text-lg md:text-xl font-black tracking-wider text-white uppercase flex items-center gap-1.5 leading-none">
+              KhongMan{" "}
+              <span className="text-red-600 drop-shadow-[0_0_12px_rgba(220,38,38,0.9)]">
+                TongMi
+              </span>
             </h1>
+            <span className="text-[9px] md:text-[10px] font-bold text-red-500/90 tracking-widest uppercase mt-1">
+              PROJECT CUSTOM PARTS
+            </span>
           </div>
         </div>
 
-        {/* Right Nav Options */}
-        <div className="flex items-center gap-3 text-xs font-bold">
-          <button className="flex items-center gap-1 text-zinc-400 hover:text-white transition-colors">
-            <span className="w-2 h-2 rounded-full bg-red-500 inline-block"></span> TH
-          </button>
-          
+        {/* RIGHT CONTROLS */}
+        <div className="flex items-center gap-3">
           <button 
             onClick={() => setIsCartOpen(true)} 
             className="flex items-center gap-1.5 text-zinc-300 hover:text-white transition-colors bg-zinc-900/90 px-3 py-1.5 rounded-xl border border-zinc-800 hover:border-red-600/50"
@@ -238,9 +241,15 @@ export default function HomePage() {
             )}
           </button>
 
-          <button className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-extrabold px-4 py-2 rounded-xl transition-all shadow-[0_0_15px_rgba(220,38,38,0.4)]">
-            + ฝากขายอะไหล่
-          </button>
+          <div className="flex items-center gap-2 bg-zinc-950 px-3.5 py-1.5 rounded-full border border-red-600/40 shadow-[0_0_10px_rgba(220,38,38,0.2)]">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-red-600 shadow-[0_0_8px_#dc2626]"></span>
+            </span>
+            <span className="text-[11px] font-extrabold text-zinc-200 tracking-wide uppercase">
+              Dark Theme
+            </span>
+          </div>
         </div>
       </header>
 
